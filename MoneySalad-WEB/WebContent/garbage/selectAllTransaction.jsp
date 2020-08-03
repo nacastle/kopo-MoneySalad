@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
-        <title>MoneySalad - 돈 관리가 쉬워지는</title>
-        <script>
-        	new WOW().init();
-        </script>
+    
+            <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
+    
+        
+        <title>Static Navigation - SB Admin</title>
     </head>
     <body class="sb-nav-fixed">
-    	<jsp:include page="/na/include/layout/topnav.jsp"></jsp:include>
+    		<jsp:include page="/na/include/layout/topnav.jsp"></jsp:include>
         <div id="layoutSidenav">
-            <jsp:include page="/na/include/layout/sidenav.jsp"></jsp:include>
+        	<jsp:include page="/na/include/layout/sidenav.jsp"></jsp:include>
+            
             
             <div id="layoutSidenav_content">
                 <main>
@@ -34,27 +34,26 @@
 								<hr>
 							</c:forEach>
                 </main>
-                	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
-                
+
+			<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
+
             </div>
         </div>
-	<jsp:include page="/na/include/lib/bottomLibs.jsp"></jsp:include>
-	<script>
+        	<jsp:include page="/na/include/lib/bottomLibs.jsp"></jsp:include>
         
-//         	var userVO = '<c:out value="${userVO}"/>';
-     
-//         	if(userVO == "") {
-//         	Swal.fire({
-//         		  icon: 'error',
-//         		  title: 'Oops...',
-//         		  text: '로그인이 필요한 서비스입니다.'
-        		 
-//         		}).then((result) => {
-<%--         			location.href="<%=request.getContextPath()%>/login.do" --%>
-//         				})
-//         }
-        
-        </script>
-
-</body>
+    </body>
 </html>
+    
+
+
+<!-- <h2>입출금내역</h2> -->
+<%-- <c:forEach items="${transactionList }" var="transaction"> --%>
+<%-- 	거래일자: ${transaction.transactionDate }<br> --%>
+<%-- 	본인계좌: ${transaction.accountNumber }<br> --%>
+<%-- 	상대계좌: ${transaction.counterAccountNumber }<br> --%>
+<%-- 	거래유형: ${transaction.transactionType }<br> --%>
+<%-- 	거래금액: ${transaction.transactionAmount }<br> --%>
+<!-- 	<hr> -->
+<%-- </c:forEach> --%>
+
+

@@ -2,37 +2,73 @@ package monSal.QnAboard.vo;
 
 public class BoardVO {
 	
+	private String boardNo;
 	private String title;
-	private String writer;
+	private String content;
+	private String id;
+	private int viewCnt;
+	private String regDate;
 	
 	
 	
 	
 	public BoardVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public BoardVO(String title, String writer) {
+	public BoardVO(String boardNo, String title, String content, String id, int viewCnt, String regDate) {
 		super();
+		this.boardNo = boardNo;
 		this.title = title;
-		this.writer = writer;
+		this.content = content;
+		this.id = id;
+		this.viewCnt = viewCnt;
+		this.regDate = regDate;
 	}
-	
+	public String getBoardNo() {
+		return boardNo;
+	}
+	public void setBoardNo(String boardNo) {
+		this.boardNo = boardNo;
+	}
 	public String getTitle() {
 		return title;
 	}
-	
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public String getWriter() {
-		return writer;
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public int getViewCnt() {
+		return viewCnt;
+	}
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

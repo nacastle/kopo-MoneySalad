@@ -13,6 +13,8 @@ public class SelectAllTransactionController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
+		
+//		System.out.println("실행될거같은데");
 		request.setCharacterEncoding("utf-8");
 		
 		String accountNumber = request.getParameter("accountNumber");
