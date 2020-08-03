@@ -14,7 +14,7 @@ public class LoginDAO {
 		LoginVO userVO = null;
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("select id, type ");
+		sql.append("select id, name, user_type ");
 		sql.append("  from t_member ");
 		sql.append(" where id = ? and password = ? ");
 		
@@ -31,7 +31,8 @@ public class LoginDAO {
 			if(rs.next()) {
 				userVO = new LoginVO();
 				userVO.setId(rs.getString("id"));
-				userVO.setType(rs.getString("type"));
+				userVO.setName(rs.getString("name"));
+				userVO.setType(rs.getString("user_type"));
 			}
 			
 		} catch(Exception e) {

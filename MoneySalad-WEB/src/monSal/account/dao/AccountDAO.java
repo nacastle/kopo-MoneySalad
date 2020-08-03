@@ -26,12 +26,10 @@ public class AccountDAO {
 
 			// sql문 작성
 			StringBuilder sql = new StringBuilder();
-			sql.append("select a.id, a.nickname, a.account_number, a.bank, a.owner, a.balance ");
-			sql.append(" from t_account a ");
-			sql.append(" join t_user u ");
-			sql.append(" on a.id = u.id ");
-			sql.append(" where a.id = ? ");
-			sql.append(" order by nickname  ");
+			sql.append("select id, account_nickname, account_number, account_bank, balance ");
+			sql.append(" from t_account ");
+			sql.append(" where id = ? ");
+			sql.append(" order by account_bank  ");
 
 			// sql문 ?에 값넣기
 			pstmt = conn.prepareStatement(sql.toString());
@@ -41,16 +39,22 @@ public class AccountDAO {
 			// 작성한 sql문 실행하기
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				
+				
+				AccountVO accountVO = new AccountVO();
 
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
-				int accountNumber = rs.getInt(3);
+				String accountNumber = rs.getString(3);
 				String bank = rs.getString(4);
-				String accountUser = rs.getString(5);
-				long balance = rs.getLong(6);
-
-				AccountVO accountVO = new AccountVO(id, nickname, accountNumber, bank, accountUser, balance);
-
+				long balance = rs.getLong(5);
+				
+				accountVO.setId(id);
+				accountVO.setNickname(nickname);
+				accountVO.setAccountNumber(accountNumber);
+				accountVO.setBank(bank);
+				accountVO.setBalance(balance);
+				
 				accoutList.add(accountVO);
 			}
 
@@ -99,7 +103,7 @@ public class AccountDAO {
 
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
-				int accountNumber = rs.getInt(3);
+				String accountNumber = rs.getString(3);
 				String bank = rs.getString(4);
 				String accountUser = rs.getString(5);
 				long balance = rs.getLong(6);
@@ -153,7 +157,7 @@ public class AccountDAO {
 
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
-				int accountNumber = rs.getInt(3);
+				String accountNumber = rs.getString(3);
 				String bank = rs.getString(4);
 				String accountUser = rs.getString(5);
 				long balance = rs.getLong(6);
@@ -205,7 +209,7 @@ public class AccountDAO {
 
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
-				int accountNumber = rs.getInt(3);
+				String accountNumber = rs.getString(3);
 				String bank = rs.getString(4);
 				String accountUser = rs.getString(5);
 				long balance = rs.getLong(6);
@@ -252,7 +256,7 @@ public class AccountDAO {
 
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
-				int accountNumber = rs.getInt(3);
+				String accountNumber = rs.getString(3);
 				String bank = rs.getString(4);
 				String accountUser = rs.getString(5);
 				long balance = rs.getLong(6);
@@ -309,7 +313,7 @@ public class AccountDAO {
 //	return accountVO;
 //	}
 
-	public void deleteAccountDAO(LoginVO userVO, int accountNumber) {
+	public void deleteAccountDAO(LoginVO userVO, String accountNumber) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -331,7 +335,7 @@ public class AccountDAO {
             pstmt = conn.prepareStatement(sql.toString());
 
             pstmt.setString(1, userVO.getId());
-            pstmt.setInt(2, accountNumber);
+            pstmt.setString(2, accountNumber);
 
             // 작성한 sql문 실행하기
             ResultSet rs = pstmt.executeQuery();
@@ -403,7 +407,7 @@ public class AccountDAO {
 
             pstmt.setString(1, userVO.getId());
             pstmt.setString(2, accountVO.getNickname());
-            pstmt.setInt(3, accountVO.getAccountNumber());
+            pstmt.setString(3, accountVO.getAccountNumber());
             pstmt.setString(4, accountVO.getBank());
             pstmt.setString(5, accountVO.getAccountOwner());
             pstmt.setLong(6, accountVO.getBalance());

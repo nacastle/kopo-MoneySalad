@@ -1,9 +1,13 @@
 package monSal;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import monSal.account.dao.AccountDAO;
+import monSal.account.vo.AccountVO;
 import monSal.login.dao.LoginDAO;
 import monSal.login.vo.LoginVO;
 
@@ -40,6 +44,13 @@ public class LoginProcessController implements Controller {
 			
 			HttpSession session = request.getSession(); // 세션 객체 얻기
 			session.setAttribute("userVO", userVO);
+			
+			AccountDAO accountDao = new AccountDAO();
+			List<AccountVO> accountList = accountDao.selectAllAccountDAO(userVO);
+			session.setAttribute("accountList", accountList);
+			
+			
+			
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);

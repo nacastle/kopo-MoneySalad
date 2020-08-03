@@ -3,7 +3,7 @@ package monSal.account.vo;
 public class AccountVO {
     private String id;
     private String nickname;
-    private int accountNumber;
+    private String accountNumber;
     private String bank;
     private String accountOwner;
     private long balance;
@@ -11,7 +11,7 @@ public class AccountVO {
     public AccountVO() {
     }
 
-    public AccountVO(String id, String nickname, int accountNumber, String bank, String accountOwner, long balance) {
+    public AccountVO(String id, String nickname, String accountNumber, String bank, String accountOwner, long balance) {
         this.id = id;
         this.nickname = nickname;
         this.accountNumber = accountNumber;
@@ -36,11 +36,11 @@ public class AccountVO {
         this.nickname = nickname;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

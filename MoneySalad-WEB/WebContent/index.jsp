@@ -112,7 +112,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        ${userVO.id } &nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath() %>/logoutProcess.do">로그아웃</a><br>
+                        ${userVO.name } &nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath() %>/logoutProcess.do">로그아웃</a><br>
                     </div>
                 </nav>
             </div>
@@ -124,43 +124,52 @@
                             <li class="breadcrumb-item active">전계좌조회</li>
                         </ol>
                         <div class="row">
+                        <c:forEach items="${accountList }" var="account"> 
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+<%--                                     <span class="card-title">${account.bank }</span> <span class="card-title text-right">${account.nickname}</span><br> --%>
+                                    <div class="card-body font-weight-bold">${account.bank } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${account.nickname}</div>
+                                    <div class="card-title">&nbsp;&nbsp;${account.accountNumber }</div>
+                                    <div class="card-body text-right">${account.balance } 원</div>
+<%--                                     <div class="card-text text-right">${account.balance } 원</div> --%>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    <form action="<%=request.getContextPath()%>/selectAllTransaction.do" method="post">
+                                    	<input type="hidden" name="accountNumber" value="${account.accountNumber}">
+                                    	<button class="btn btn-info" type="submit" name="accountNumber">View Details</button>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
+<!--                             <div class="col-xl-3 col-md-6"> -->
+<!--                                 <div class="card bg-warning text-white mb-4"> -->
+<!--                                     <div class="card-body">Warning Card</div> -->
+<!--                                     <div class="card-footer d-flex align-items-center justify-content-between"> -->
+<!--                                         <a class="small text-white stretched-link" href="#">View Details</a> -->
+<!--                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="col-xl-3 col-md-6"> -->
+<!--                                 <div class="card bg-success text-white mb-4"> -->
+<!--                                     <div class="card-body">Success Card</div> -->
+<!--                                     <div class="card-footer d-flex align-items-center justify-content-between"> -->
+<!--                                         <a class="small text-white stretched-link" href="#">View Details</a> -->
+<!--                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="col-xl-3 col-md-6"> -->
+<!--                                 <div class="card bg-danger text-white mb-4"> -->
+<!--                                     <div class="card-body">Danger Card</div> -->
+<!--                                     <div class="card-footer d-flex align-items-center justify-content-between"> -->
+<!--                                         <a class="small text-white stretched-link" href="#">View Details</a> -->
+<!--                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
+<!-- 						<br> -->
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">

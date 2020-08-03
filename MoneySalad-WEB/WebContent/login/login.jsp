@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -7,11 +9,22 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
+        <meta name="description" content="" />\
         <meta name="author" content="" />
         <title>로그인 페이지</title>
         <link href="<%=request.getContextPath()%>/dist/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+<%--         <script>
+			로그인 상태에서 로그인 화면으로 가면 자동으로 메인화면으로 넘어가게끔하는 장치
+        
+       		var userVO = '<c:out value="${userVO}"/>';
+
+        	if (userVO != ""){
+        		location.href="<%=request.getContextPath()%>";
+        	}
+        	
+        
+        </script> --%>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
