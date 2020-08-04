@@ -67,9 +67,7 @@
         	}
 
         	function doList() {
-        		if(confirm("작성중인 글이 있습니다. 그래도 이동하시겠습니까?")){
-        			location.href = "<%=request.getContextPath()%>/qnaBoardList.do"
-        		}
+        		location.href = "<%=request.getContextPath()%>/qnaBoardList.do"
 
         	}
         </script>
@@ -85,22 +83,19 @@
                         <h1 class="mt-4">QnA</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
-                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/board.do?${board.boardNo}">게시글</a></li>
-                            <li class="breadcrumb-item active">글 수정</li>
+                            <li class="breadcrumb-item active">새글 작성</li>
                         </ol>
                         
             <hr width="80%">
-		<h2>게시물 수정폼</h2>
+		<h2>게시물 등록폼 쌔거섀꺼</h2>
 		<hr width="80%">
 		<br>
 		<form action="<%=request.getContextPath()%>/editProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doWrite()"
 			enctype="multipart/form-data">
 
-			<input type="hidden" name="id" value="${userVO.id }">
-			<input type="hidden" name="boardNo" value="${board.boardNo}">
-			버노버ㅗㄴ버ㅗ너ㅗ: ${board.boardNo}
-			
+			<input type="hidden" name="writer" value="${userVO.id }">
+			<input type="hidden" name="boardNo" value="${board.boardNo }">
 			<table border="1" style="width: 80%">
 				<tr>
 					<th width="23%">제목</th>
@@ -112,7 +107,7 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea rows="7" cols="60" name="content" >${board.content }</textarea></td>
+					<td><textarea rows="7" cols="60" name="content">${board.content }</textarea></td>
 				</tr>
 
 				<tr>
@@ -123,12 +118,15 @@
 			</table>
 			<br>
 
+			<%-- 			<button type="submit"></button> button 쓰든가 input 쓰든가 2가지 방식
+ --%>
 			<input type="submit" value="등록">
+			<%-- <input type="button" value="목록" id="btnList"> --%>
 			<input type="button" value="목록" onclick="doList()" />
 		</form>
 		
 
-		</div>
+	</div>		
                 </main>
                 	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
                 

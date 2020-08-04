@@ -11,11 +11,26 @@
         <script>
         	new WOW().init();
         	
-        	function goWriteForm() {
-        		/* 		location.href = "writeForm.jsp";
-        		 */location.href = "<%=request.getContextPath()%>/writeForm.do";
-        	}
         	
+                	
+        	
+        	
+        	function doRegister() {
+
+        		let f = document.wForm;
+
+        		if (f.depositAmount.value < 1000) {
+        			alert("1,000원 이상의 금액을 입금해주세요.")
+        			f.depositAmount.focus()
+        			return false
+        		}
+
+
+        		return true;
+
+        	}
+
+
         </script>
     </head>
     <body class="sb-nav-fixed">
@@ -26,53 +41,39 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">QnA</h1>
+                        <h1 class="mt-4">캐슬계좌 생성</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">QnA</li>
+                            <li class="breadcrumb-item active">캐슬계좌 생성</li>
                         </ol>
-                        <h2>게시판 목록</h2><br>
                         
-                        			<table border="1" style="width: 80%">
+         <hr width="80%">
+		<h2>계좌생성양식</h2>
+		<hr width="80%">
+		<br>
+		<h4><i>${userVO.name }님의 새롭게 생성될 캐슬은행 계좌의 계좌번호는 "${newAccountNumber }" 입니다.</i></h4>
+		<br>
+		<form action="<%=request.getContextPath()%>/createAccountProcess.do" name="wForm" method="post"
+			autocomplete="off" onsubmit="return doRegister()">
+
+			<input type="hidden" name="newAccountNumber" value="${newAccountNumber }">
+			<table border="1" style="width: 80%">
 				<tr>
-
-					<th style="width: 7%">번호</th>
-					<th>제목</th>
-					<th style="width: 16%">글쓴이</th>
-					<th style="width: 20%">등록일</th>
-					<th style="width: 7%">조회수</th>
+					<th width="23%">별칭 입력</th>
+					<td><input type="text" name="nickname" size="20%"></td>
 				</tr>
-				<c:forEach items="${ boardList }" var="board" varStatus="loop">
-					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>>
-						<td>${ board.boardNo }</td>
+				<tr>
+					<th>입금할 금액</th>
+					<td><input type="number" name="depositAmount" size="10%">원</td>
+				</tr>
 
-						<td><a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out
-									value="${board.title }" />
-						</a></td>
-						<td>${ board.id }</td>
-							
-						<c:set var="dbSimpleDate" value="${fn:substring(board.regDate,0,10) }"/>						
-						<c:set var="dbTime" value="${fn:substring(board.regDate,11,16) }"/>						
-							
-									
-						
-					 	 <c:choose>
-							<c:when test="${javaSimpleDate != dbSimpleDate  }">
-								<td>${dbSimpleDate }</td>
-							</c:when>
-							<c:otherwise>
-								<td>${dbTime }</td>
-							</c:otherwise>
-						</c:choose>   
-						<td>${board.viewCnt}</td>
-					</tr>
-								
-					
-				</c:forEach>
-				
 			</table>
-			
-			<button onclick="goWriteForm()">새글 작성</button>
-			
+			<p>* 계좌 생성 시 필요한 최소 입금 금액은 1,000원 입니다.</p>
+			<br>
+
+			<input type="submit" value="생성">
+		</form>
+		
+
 	</div>		
                 </main>
                 	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
@@ -81,7 +82,8 @@
         </div>
 	<jsp:include page="/na/include/lib/bottomLibs.jsp"></jsp:include>
 	<script>
-        
+	
+		
 //         	var userVO = '<c:out value="${userVO}"/>';
      
 //         	if(userVO == "") {

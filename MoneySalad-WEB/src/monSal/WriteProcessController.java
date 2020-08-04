@@ -76,7 +76,7 @@ public class WriteProcessController implements Controller {
 		}
 		
 		
-		request.setAttribute("url", request.getContextPath()+"/board.do");
+		request.setAttribute("url", request.getContextPath()+"/board.do?no="+boardNo);
 		request.setAttribute("msg", "게시글이 등록되었습니다.");
 		
 		

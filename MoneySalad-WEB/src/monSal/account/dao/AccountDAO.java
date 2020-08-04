@@ -13,11 +13,11 @@ import java.util.List;
 
 public class AccountDAO {
 
-	public List<AccountVO> selectAllAccountDAO(LoginVO userVO) { // 추후에 selectAccountDAO 로 간단히 구현할수 있을지도?
+	public List<String> selectAllAccountNumberDAO() { // 추후에 selectAccountDAO 로 간단히 구현할수 있을지도?
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		List<AccountVO> accoutList = new ArrayList<>();
+		List<String> accoutNumberList = new ArrayList<>();
 
 		try {
 
@@ -26,23 +26,61 @@ public class AccountDAO {
 
 			// sql문 작성
 			StringBuilder sql = new StringBuilder();
-			sql.append("select id, account_nickname, account_number, account_bank, balance ");
+			sql.append(" select account_number ");
 			sql.append(" from t_account ");
-			sql.append(" where id = ? ");
-			sql.append(" order by account_bank  ");
 
 			// sql문 ?에 값넣기
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, userVO.getId());
 
+			// 작성한 sql문 실행하기
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				
+				String accountNumber = rs.getString(1);
+				accoutNumberList.add(accountNumber);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 접속종료
+			JDBCClose.close(conn, pstmt);
+		}
+
+		return accoutNumberList;
+	}
+	
+	public List<AccountVO> selectAllAccountDAO(LoginVO userVO) { // 추후에 selectAccountDAO 로 간단히 구현할수 있을지도?
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		List<AccountVO> accoutList = new ArrayList<>();
+		
+		try {
+			
+			// 드라이버 받고 connect해서 connection 변수 하나 생성
+			conn = new ConnectionFactory().getConnection();
+			
+			// sql문 작성
+			StringBuilder sql = new StringBuilder();
+			sql.append("select id, account_nickname, account_number, account_bank, balance ");
+			sql.append(" from t_account ");
+			sql.append(" where id = ? ");
+			sql.append(" order by account_bank  ");
+			
+			// sql문 ?에 값넣기
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, userVO.getId());
+			
 			// 작성한 sql문 실행하기
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				
 				
 				AccountVO accountVO = new AccountVO();
-
+				
 				String id = rs.getString(1);
 				String nickname = rs.getString(2);
 				String accountNumber = rs.getString(3);
@@ -57,14 +95,14 @@ public class AccountDAO {
 				
 				accoutList.add(accountVO);
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// 접속종료
 			JDBCClose.close(conn, pstmt);
 		}
-
+		
 		return accoutList;
 	}
 
@@ -317,7 +355,6 @@ public class AccountDAO {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
-        AccountVO accountVO = null;
 
         try {
 
@@ -338,7 +375,7 @@ public class AccountDAO {
             pstmt.setString(2, accountNumber);
 
             // 작성한 sql문 실행하기
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -353,7 +390,6 @@ public class AccountDAO {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
-        AccountVO accountVO = null;
 
         try {
 
@@ -375,7 +411,7 @@ public class AccountDAO {
             pstmt.setInt(3, tempAccountNumber);
 
             // 작성한 sql문 실행하기
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -386,7 +422,7 @@ public class AccountDAO {
 
     }
 
-	public void registerAccountDAO(LoginVO userVO, AccountVO accountVO) {
+	public void registerAccountDAO(AccountVO accountVO) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -398,22 +434,22 @@ public class AccountDAO {
 
             // sql문 작성
             StringBuilder sql = new StringBuilder();
+            
 
-            sql.append(" insert into t_account ");
-            sql.append(" values (?, ?, ?, ? ,? ,?) ");
+            sql.append(" insert into t_account(account_number, account_bank, account_nickname, balance, id) ");
+            sql.append(" values (?, ?, ?, ? ,?) ");
 
             // sql문 ?에 값넣기
             pstmt = conn.prepareStatement(sql.toString());
 
-            pstmt.setString(1, userVO.getId());
-            pstmt.setString(2, accountVO.getNickname());
-            pstmt.setString(3, accountVO.getAccountNumber());
-            pstmt.setString(4, accountVO.getBank());
-            pstmt.setString(5, accountVO.getAccountOwner());
-            pstmt.setLong(6, accountVO.getBalance());
+            pstmt.setString(1, accountVO.getAccountNumber());
+            pstmt.setString(2, accountVO.getBank());
+            pstmt.setString(3, accountVO.getNickname());
+            pstmt.setLong(4, accountVO.getBalance());
+            pstmt.setString(5, accountVO.getId());
 
             // 작성한 sql문 실행하기
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -453,7 +489,7 @@ public class AccountDAO {
             pstmt.setInt(4, tempAccountNumber);
 
             // 작성한 sql문 실행하기
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -492,7 +528,7 @@ public class AccountDAO {
             pstmt.setInt(4, tempAccountNumber);
 
             // 작성한 sql문 실행하기
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();

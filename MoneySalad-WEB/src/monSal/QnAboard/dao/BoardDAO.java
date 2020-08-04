@@ -24,9 +24,9 @@ public class BoardDAO {
 			conn = new ConnectionFactory().getConnection();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select board_no, title, id, reg_date ");
+			sql.append("select board_no, title, id, reg_date, view_cnt ");
 			sql.append(" from t_qna_board ");
-			sql.append(" order by board_no");
+			sql.append(" order by to_number(board_no) desc ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
@@ -40,11 +40,13 @@ public class BoardDAO {
 				String title = rs.getString("title");
 				String id = rs.getString("id");
 				String regDate = rs.getString("reg_date");
+				int viewCnt = rs.getInt("view_cnt");
 
 				boardVO.setBoardNo(boardNo);
 				boardVO.setTitle(title);
 				boardVO.setId(id);
 				boardVO.setRegDate(regDate);
+				boardVO.setViewCnt(viewCnt);
 
 				boardList.add(boardVO);
 			}
@@ -331,6 +333,32 @@ public class BoardDAO {
 
 		}
 	}
+	
+	public void deleteBoard(String no) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = new ConnectionFactory().getConnection();
+			StringBuilder sql = new StringBuilder();
+
+			sql.append(" delete t_qna_board where board_no = ? ");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, no);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JDBCClose.close(conn, pstmt);
+
+		}
+	}
+
 
 	
 	

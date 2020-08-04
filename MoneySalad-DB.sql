@@ -22,6 +22,9 @@ FOREIGN KEY(id) REFERENCES t_member(id) ON DELETE CASCADE; --id 삭제되면 등록된 
 ALTER TABLE t_account
 ADD CONSTRAINT chk_balance CHECK (balance >= 0);
 
+ALTER TABLE t_account MODIFY(balance  DEFAULT 0);
+
+
 --------------------------------------------------------------------------------
 
 DROP TABLE t_code;
@@ -99,7 +102,7 @@ CREATE SEQUENCE seq_t_qna_board_board_no NOCACHE;
 ALTER TABLE t_qna_board MODIFY(view_cnt  DEFAULT 0);
 
 ALTER TABLE t_qna_board MODIFY(reg_date  
-DEFAULT to_char(sysdate - 7/24,'yyyy-mm-dd HH24:MI:SS'));
+DEFAULT to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS'));
 
 ALTER TABLE t_qna_board ADD CONSTRAINT t_qna_board_id_fk   
 FOREIGN KEY(id) REFERENCES t_member(id); --id 외래키 설정
@@ -207,7 +210,9 @@ commit;
 
 select * from t_member;
 select * from t_account;
-select * from t_qna_board;
+select * from t_qna_board order by reg_date;
+select * from t_qna_board order by to_number(board_no) DESC;
+select * from t_qna_board_file;
 
 select * from t_transaction;
 
@@ -215,4 +220,6 @@ select * from t_qna_board_file;
 
 select * from t_code;
 
+select to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS') from dual;
 
+commit;
