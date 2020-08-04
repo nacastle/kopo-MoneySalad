@@ -351,7 +351,7 @@ public class AccountDAO {
 //	return accountVO;
 //	}
 
-	public void deleteAccountDAO(LoginVO userVO, String accountNumber) {
+	public void deleteAccountDAO(String accountNumber) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -365,14 +365,12 @@ public class AccountDAO {
             StringBuilder sql = new StringBuilder();
 
             sql.append("delete from t_account ");
-            sql.append(" where id = ? ");
-            sql.append(" and account_number = ? ");
+            sql.append(" where account_number = ?  ");
 
             // sql문 ?에 값넣기
             pstmt = conn.prepareStatement(sql.toString());
 
-            pstmt.setString(1, userVO.getId());
-            pstmt.setString(2, accountNumber);
+            pstmt.setString(1, accountNumber);
 
             // 작성한 sql문 실행하기
             pstmt.executeUpdate();
@@ -386,7 +384,7 @@ public class AccountDAO {
 
     }
 
-	public void reviseAccountDAO(LoginVO userVO, String newNickname, int tempAccountNumber) {
+	public void reviseAccountDAO(String newNickname, String accountNumber) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -400,15 +398,14 @@ public class AccountDAO {
             StringBuilder sql = new StringBuilder();
 
             sql.append("update t_account ");
-            sql.append(" set nickname = ? ");
-            sql.append(" where id = ? and account_number = ? ");
+            sql.append(" set account_nickname = ? ");
+            sql.append(" where account_number = ? ");
 
             // sql문 ?에 값넣기
             pstmt = conn.prepareStatement(sql.toString());
 
             pstmt.setString(1, newNickname);
-            pstmt.setString(2, userVO.getId());
-            pstmt.setInt(3, tempAccountNumber);
+            pstmt.setString(2, accountNumber);
 
             // 작성한 sql문 실행하기
             pstmt.executeUpdate();

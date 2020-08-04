@@ -19,13 +19,8 @@
 
         		let f = document.wForm;
 
-        		if (f.selectBank.value == "") {
-        			alert("은행을 선택해주세요")
-//         			f.depositAmount.focus()
-        			return false
-        		}
-        		if (f.accountNumber.value == "") {
-        			alert("계좌번호를 입력해주세요.")
+        		if (f.depositAmount.value < 1000) {
+        			alert("1,000원 이상의 금액을 입금해주세요.")
         			f.depositAmount.focus()
         			return false
         		}
@@ -46,46 +41,20 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">캐슬계좌 생성</h1>
+                        <h1 class="mt-4">계좌관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">새 계좌 등록</li>
+                            <li class="breadcrumb-item active">계좌관리</li>
                         </ol>
                         
          <hr width="80%">
-		<h3>계좌등록양식</h3>
+		<h2>관리항목 선택</h2>
 		<hr width="80%">
 		<br>
-		<form action="<%=request.getContextPath()%>/registerAccountProcess.do" name="wForm" method="post"
-			autocomplete="off" onsubmit="return doRegister()">
-
-			<input type="hidden" name="balance" value="${balance }"> 
-			<table border="1" style="width: 80%">
-				<tr>
-					<th width="23%">은행 선택</th>
-					<td>&nbsp;
-						<input type="radio" name="selectBank" value="하나은행"> 하나은행 
-						<input type="radio" name="selectBank" value="우리은행"> 우리은행 
-						<input type="radio" name="selectBank" value="기업은행"> 기업은행 
-						<input type="radio" name="selectBank" value="국민은행"> 국민은행 
-						<input type="radio" name="selectBank" value="신한은행"> 신한은행 
-						<input type="radio" name="selectBank" value="농협은행"> 농협은행 
-					
-					</td>
-				</tr>
-				<tr>
-					<th>계좌번호 입력</th>
-					<td><input type="text" name="accountNumber" size="10%"></td>
-				</tr>
-				<tr>
-					<th>별칭 입력</th>
-					<td><input type="text" name="nickname" size="10%"></td>
-				</tr>
-
-			</table>
-			<br>
-
-			<input type="submit" value="등록">
-		</form>
+		<br>
+		
+		<a href="<%=request.getContextPath() %>/editAccountNicknameForm.do">계좌별칭 수정</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="<%=request.getContextPath() %>/deleteAccountForm.do">계좌 삭제</a>
 		
 
 	</div>		

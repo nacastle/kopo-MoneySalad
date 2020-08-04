@@ -27,17 +27,17 @@ public class RegisterAccountProcessController implements Controller {
 	LoginVO userVO = (LoginVO)session.getAttribute("userVO"); //
 	String id = userVO.getId();
 	String accountOwner = userVO.getName(); //db t_account테이블엔 이 속성 없음
-	String bank = "캐슬은행";
-	String newAccountNumber = request.getParameter("newAccountNumber"); 
+	String bank = request.getParameter("selectBank");
+	String accountNumber = request.getParameter("accountNumber"); 
 	String nickname = request.getParameter("nickname");
-	int depositAmount = Integer.parseInt(request.getParameter("depositAmount"));
+	Long balance = Long.parseLong(request.getParameter("balance"));
 	
 	accountVO.setId(id);
 	accountVO.setAccountOwner(accountOwner);
 	accountVO.setBank(bank);
-	accountVO.setAccountNumber(newAccountNumber);
+	accountVO.setAccountNumber(accountNumber);
 	accountVO.setNickname(nickname);
-	accountVO.setBalance(depositAmount);
+	accountVO.setBalance(balance);
 	
 	AccountDAO dao = new AccountDAO();
 	dao.registerAccountDAO(accountVO);
@@ -46,11 +46,11 @@ public class RegisterAccountProcessController implements Controller {
 	session.setAttribute("accountList", accountList);
 	
 	request.setAttribute("url", request.getContextPath());
-	request.setAttribute("msg", "새로운 계좌가 생성되었습니다.");
+	request.setAttribute("msg", "계좌가 등록되었습니다.");
 	
 	
 	
-	return "/account/createAccountProcess.jsp";
+	return "/account/registerAccountProcess.jsp";
 }
 
 }

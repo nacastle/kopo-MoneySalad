@@ -87,7 +87,7 @@
                         </ol>
                         
             <hr width="80%">
-		<h2>게시물 등록폼 쌔거섀꺼</h2>
+		<h2>게시물 등록폼</h2>
 		<hr width="80%">
 		<br>
 		<form action="<%=request.getContextPath()%>/editProcess.do" name="wForm" method="post"
