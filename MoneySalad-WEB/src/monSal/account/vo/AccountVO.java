@@ -5,7 +5,7 @@ public class AccountVO {
     private String nickname;
     private String accountNumber;
     private String bank;
-    private String accountOwner;
+    private String accountOwner; // 테이블엔 없음
     private long balance;
 
     public AccountVO() {

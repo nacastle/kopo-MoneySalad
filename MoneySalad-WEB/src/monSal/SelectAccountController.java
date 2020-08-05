@@ -13,9 +13,9 @@ public class SelectAccountController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		
-		String accountNumberStr = request.getParameter("accountNumber");
-		int accountNumber=Integer.parseInt(accountNumberStr);
-		System.out.println(accountNumber);
+		String accountNumber = request.getParameter("accountNumber");
+//		int accountNumber=Integer.parseInt(accountNumberStr);
+//		System.out.println(accountNumber);
 		
 		AccountDAO dao = new AccountDAO();
 		AccountVO accountVO= new AccountVO();

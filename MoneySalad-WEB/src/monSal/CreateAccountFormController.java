@@ -39,7 +39,7 @@ public class CreateAccountFormController implements Controller {
 		while (true) {
 
 			newAccountNumber = genNewAccountNumber();
-			System.out.println(newAccountNumber);
+//			System.out.println(newAccountNumber);
 			if (accountNumberList.contains(newAccountNumber)) {
 				newAccountNumber = genNewAccountNumber();
 			} else {
