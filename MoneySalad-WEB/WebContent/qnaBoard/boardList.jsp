@@ -30,19 +30,37 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">QnA</li>
                         </ol>
-                        <h2>게시판 목록</h2><br>
+                        <br>
+                        <h2>게시판 목록</h2>
+<!--                         <hr> -->
                         
-                        			<table border="1" style="width: 80%">
-				<tr>
-
-					<th style="width: 7%">번호</th>
-					<th>제목</th>
-					<th style="width: 16%">글쓴이</th>
-					<th style="width: 20%">등록일</th>
-					<th style="width: 7%">조회수</th>
-				</tr>
-				<c:forEach items="${ boardList }" var="board" varStatus="loop">
-					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>>
+                        <table class="table table-hover">
+                        
+<!--                         <th style="width: 7%">번호</th> -->
+<!-- 					<th>제목</th> -->
+<!-- 					<th style="width: 16%">글쓴이</th> -->
+<!-- 					<th style="width: 20%">등록일</th> -->
+<!-- 					<th style="width: 7%">조회수</th> -->
+                        
+  <thead>
+    <tr>
+      <th scope="col" style="width: 7%">번호</th>
+      <th scope="col" >제목</th>
+      <th scope="col" style="width: 16%">글쓴이</th>
+      <th scope="col" style="width: 20%">등록일자</th>
+      <th scope="col" style="width: 7%">조회수</th>
+    </tr>
+  </thead>
+  <tbody>
+<!--     <tr class="table-active"> -->
+<!--       <th scope="row">Active</th> -->
+<!--       <td>Column content</td> -->
+<!--       <td>Column content</td> -->
+<!--       <td>Column content</td> -->
+<!--     </tr> -->
+    <c:forEach items="${ boardList }" var="board" varStatus="loop">
+<%-- 					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>> --%>
+					<tr class="table-info">
 						<td>${ board.boardNo }</td>
 						
 						<c:choose>
@@ -83,9 +101,66 @@
 					
 				</c:forEach>
 				
-			</table>
+    
+  </tbody>
+</table>
+
+                        
+<!--                         			<table border="1" style="width: 80%"> -->
+<!-- 				<tr> -->
+
+<!-- 					<th style="width: 7%">번호</th> -->
+<!-- 					<th>제목</th> -->
+<!-- 					<th style="width: 16%">글쓴이</th> -->
+<!-- 					<th style="width: 20%">등록일</th> -->
+<!-- 					<th style="width: 7%">조회수</th> -->
+<!-- 				</tr> -->
+<%-- 				<c:forEach items="${ boardList }" var="board" varStatus="loop"> --%>
+<%-- 					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>> --%>
+<%-- 						<td>${ board.boardNo }</td> --%>
+						
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${board.boardNo == board.originalNo }"> --%>
+<%-- 						<td><a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out --%>
+<%-- 									value="${board.title }" /> --%>
+<!-- 						</a></td> -->
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 						<td> -->
+<%-- 						<c:forEach  begin="1" end="${board.boardDepth }"> --%>
+<!-- 						RE: -->
+<%-- 						</c:forEach> --%>
+						
+<%-- 						<a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out --%>
+<%-- 									value="${board.title }" /> --%>
+<!-- 						</a></td> -->
+<%-- 						</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<%-- 						<td>${ board.id }</td> --%>
+							
+<%-- 						<c:set var="dbSimpleDate" value="${fn:substring(board.regDate,0,10) }"/>						 --%>
+<%-- 						<c:set var="dbTime" value="${fn:substring(board.regDate,11,16) }"/>						 --%>
+							
+									
+						
+<%-- 					 	 <c:choose> --%>
+<%-- 							<c:when test="${javaSimpleDate != dbSimpleDate  }"> --%>
+<%-- 								<td>${dbSimpleDate }</td> --%>
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<%-- 								<td>${dbTime }</td> --%>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose>    --%>
+<%-- 						<td>${board.viewCnt}</td> --%>
+<!-- 					</tr> -->
+								
+					
+<%-- 				</c:forEach> --%>
+				
+<!-- 			</table> -->
 			
 <%-- 			<c:forEach var="i" begin="1" end="${curLastPage }"> --%>
+	<div style="margin-left: 40%">
 			<c:if test="${block -1 != 0 }">
 			
 			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block -1 }&page=${groupStartPage-1 }" >이전</a> &nbsp;
@@ -101,12 +176,15 @@
 			</c:otherwise>
 			</c:choose>
 			</c:forEach>
-			<c:if test="${block != blockCnt}">
+			<c:if test="${block != blockCnt}">&nbsp;
 			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block+1 }&page=${groupEndPage+1 }" >다음</a> &nbsp;
 			</c:if>
+	</div>
+			<div align="right" style="margin-right: 2%; margin-bottom: 2%;">
+<!-- 					<input class="btn btn-outline-primary" style="margin-left: 73%" type="submit" value="등록"> -->
 			
-			<button onclick="goWriteForm()">새글 작성</button>
-			
+				<button class="btn btn-outline-primary" onclick="goWriteForm()">새글 작성</button>
+			</div>
 	</div>		
                 </main>
                 	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>

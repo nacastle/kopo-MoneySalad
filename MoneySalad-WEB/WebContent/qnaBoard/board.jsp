@@ -52,7 +52,7 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">게시글</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
+                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1">QnA</a></li>
                             <li class="breadcrumb-item active">게시글</li>
                         </ol>
                         

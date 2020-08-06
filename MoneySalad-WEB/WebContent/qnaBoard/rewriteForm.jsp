@@ -86,14 +86,14 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">답글 작성</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
+                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1">QnA</a></li>
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/board.do?no=${boardNo}">게시글</a></li>
                             <li class="breadcrumb-item active">답글 작성</li>
                         </ol>
                         
-            <hr width="80%">
-		<h2>답글 작성폼${boardNo }</h2>
-		<hr width="80%">
+<!--             <hr width="80%"> -->
+		<h2>답글 작성폼</h2>
+		<hr width="100%">
 		<br>
 		<form action="<%=request.getContextPath()%>/rewriteProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doWrite()"
@@ -103,10 +103,22 @@
 			<input type="hidden" name="parentNo" value="${boardNo }">
 			
 			<table border="1" style="width: 80%">
-				<tr>
+			<tr>
 					<th width="23%">제목</th>
-					<td><input type="text" name="title" size="100%"<%-- required="required" --%>></td>
-				</tr>
+								<td>
+									<div class="form-group" style="margin-bottom: 0%">
+										<!--       <textarea class="form-control" id="exampleTextarea" rows="3"></textarea> -->
+										<input class="form-control" type="text" name="title"
+											size="100%"<%-- required="required" --%>>
+									</div>
+								</td>
+							</tr>
+				<tr>
+				
+<!-- 				<tr> -->
+<!-- 					<th width="23%">제목</th> -->
+<%-- 					<td><input type="text" name="title" size="100%"required="required"></td> --%>
+<!-- 				</tr> -->
 				<tr>
 					<th>글쓴이</th>
 					<td>${userVO.id }</td>
@@ -116,8 +128,16 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea rows="7" cols="60" name="content"<%-- required="required" --%>></textarea></td>
+					<td>
+					<div class="form-group" style="margin-bottom: 0%">
+					<textarea class="form-control" rows="7" cols="60" name="content"<%-- required="required" --%>></textarea>
+					</div>
+					</td>
 				</tr>
+<!-- 				<tr> -->
+<!-- 					<th>내용</th> -->
+<%-- 					<td><textarea rows="7" cols="60" name="content"required="required"></textarea></td> --%>
+<!-- 				</tr> -->
 
 				<tr>
 					<th>첨부파일</th>
@@ -129,9 +149,18 @@
 
 			<%-- 			<button type="submit"></button> button 쓰든가 input 쓰든가 2가지 방식
  --%>
-			<input type="submit" value="등록">
-			<%-- <input type="button" value="목록" id="btnList"> --%>
-			<input type="button" value="목록" onclick="doList()" />
+
+						<div align="center" style="margin-right: 16%; margin-bottom: 2%">
+
+							<input class="btn btn-outline-primary" type="submit" value="등록">
+							<%-- <input type="button" value="목록" id="btnList"> --%>
+							<input class="btn btn-outline-primary" type="button" value="목록"
+								onclick="doList()" />
+						</div>
+
+<!-- 						<input type="submit" value="등록"> -->
+<%-- 			<%-- <input type="button" value="목록" id="btnList"> --%>
+<!-- 			<input type="button" value="목록" onclick="doList()" /> -->
 		</form>
 		
 

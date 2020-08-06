@@ -26,7 +26,7 @@
 <!--                         <hr width="80%"> -->
 						<h2>계좌선택</h2>
 						<hr width="100%">
-						<br> <br>
+						<br> 
                         <div class="row">
                         
 <%--                         <c:forEach items="${accountList }" var="account">  --%>

@@ -13,6 +13,19 @@ public class EditFormController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
+		request.setCharacterEncoding("UTF-8");
+		
+		String boardNo = request.getParameter("no");
+		BoardDAO dao = new BoardDAO();
+		BoardVO board = dao.selectBoard(boardNo);
+		String title = board.getTitle();
+		String content = board.getContent();
+		
+		request.setAttribute("boardNo", boardNo);
+		request.setAttribute("title", title);
+		request.setAttribute("content", content);
+
+		
 		
 	
 		
