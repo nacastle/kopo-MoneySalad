@@ -28,7 +28,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">계좌관리</h1>
+                        <h1 class="mt-4">계좌삭제</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/manageAccount.do">계좌관리</a></li>
                             <li class="breadcrumb-item active">계좌삭제</li>

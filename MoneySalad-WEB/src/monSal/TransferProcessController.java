@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import monSal.account.dao.AccountDAO;
 import monSal.account.vo.AccountVO;
 import monSal.login.vo.LoginVO;
+import monSal.transaction.dao.TransactionDAO;
 
 public class TransferProcessController implements Controller {
 	
@@ -30,13 +31,14 @@ public class TransferProcessController implements Controller {
 		AccountVO sendAccount = dao.selectAccountDAO(accountNumber);
 		AccountVO receiveAccount = dao.selectAccountDAO(receiveAccountNumber, bank);
 		String receiveId = receiveAccount.getId();
-		System.out.println("상대계좌아이디:"+receiveAccount.getId());
+//		System.out.println("상대계좌아이디:"+receiveAccount.getId());
 		Long balance = sendAccount.getBalance();
 		if(receiveId == null) {
 //			String none = "none";
 //			request.setAttribute("none", none);
-			msg = "입력하신 계좌정보로 등록된 계좌가 존재하지 않습니다.";
+			msg = "존재하지 않는 계좌입니다.";
 			request.setAttribute("msg", msg);
+			request.setAttribute("url", request.getContextPath() + "/transfer.do");
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance );
 			return "/account/transferProcess.jsp";
@@ -46,14 +48,19 @@ public class TransferProcessController implements Controller {
 		if(balance < transferAmount) {
 			msg = "잔액이 모자릅니다.";
 			url = request.getContextPath()+"/transfer.do";
-//			request.setAttribute("url", url);
+			request.setAttribute("url", url);
 			request.setAttribute("msg", msg);
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance );
 			return "/account/transferProcess.jsp";
 		}
+		
+		TransactionDAO tDao = new TransactionDAO();
+		tDao.recordDeposit(receiveAccountNumber, accountNumber, transferAmount); // 나성주
+		tDao.recordWithdraw(accountNumber, receiveAccountNumber, transferAmount); // 나성주
 		dao.depositDAO(receiveAccountNumber, transferAmount );
 		dao.withdrawDAO(accountNumber, transferAmount);
+
 		
 		HttpSession session = request.getSession(); // 세션 객체 얻기
 		LoginVO userVO = (LoginVO)session.getAttribute("userVO"); //

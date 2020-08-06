@@ -14,8 +14,7 @@
 </script>
 </head>
 <body>
-
-<form action="<%= request.getContextPath()%>/transfer.do" method="post" name="tForm">
+<form action="${url }" method="post" name="tForm">
 	<input type="hidden" name="balance" value="${ balance}">
 	<input type="hidden" name="accountNumber" value="${ accountNumber}">
 </form>

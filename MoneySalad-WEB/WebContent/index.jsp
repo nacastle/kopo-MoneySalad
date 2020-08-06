@@ -561,7 +561,7 @@
 	<jsp:include page="/na/include/lib/bottomLibs.jsp"></jsp:include>
 	<script>
         
-        	var userVO = '<c:out value="${userVO}"/>';
+        	<%-- var userVO = '<c:out value="${userVO}"/>';
      
         	if(userVO == "") {
         	Swal.fire({
@@ -572,7 +572,7 @@
         		}).then((result) => {
         			location.href="<%=request.getContextPath()%>/login.do"
         				})
-        }
+        } --%>
         
         </script>
 

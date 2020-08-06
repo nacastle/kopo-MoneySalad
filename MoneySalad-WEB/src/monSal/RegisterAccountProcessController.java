@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import monSal.account.dao.AccountDAO;
 import monSal.account.vo.AccountVO;
 import monSal.login.vo.LoginVO;
+import monSal.transaction.dao.TransactionDAO;
 
 public class RegisterAccountProcessController implements Controller {
 	
@@ -39,8 +40,13 @@ public class RegisterAccountProcessController implements Controller {
 	accountVO.setNickname(nickname);
 	accountVO.setBalance(balance);
 	
+
+	
 	AccountDAO dao = new AccountDAO();
 	dao.registerAccountDAO(accountVO);
+	
+	TransactionDAO tDao = new TransactionDAO();
+	tDao.recordRegister(accountNumber, bank + " 계좌 등록", balance); 
 
 	List<AccountVO> accountList = dao.selectAllAccountDAO(userVO);
 	session.setAttribute("accountList", accountList);

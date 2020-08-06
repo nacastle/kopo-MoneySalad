@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form action="<%= request.getContextPath()%>/withdraw.do" method="post" name="wForm">
+<form action="${url }" method="post" name="wForm">
 	<input type="hidden" name="balance" value="${ balance}">
 	<input type="hidden" name="accountNumber" value="${ accountNumber}">
 </form>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import monSal.account.dao.AccountDAO;
 import monSal.account.vo.AccountVO;
 import monSal.login.vo.LoginVO;
+import monSal.transaction.dao.TransactionDAO;
 
 public class CreateAccountProcessController implements Controller {
 	
@@ -42,8 +43,13 @@ public class CreateAccountProcessController implements Controller {
 		accountVO.setNickname(nickname);
 		accountVO.setBalance(depositAmount);
 		
+		
+		
 		AccountDAO dao = new AccountDAO();
 		dao.registerAccountDAO(accountVO);
+		
+		TransactionDAO tDao = new TransactionDAO();
+		tDao.recordRegister(newAccountNumber, "캐슬은행 계좌 생성", depositAmount); 
 
 		List<AccountVO> accountList = dao.selectAllAccountDAO(userVO);
 		session.setAttribute("accountList", accountList);

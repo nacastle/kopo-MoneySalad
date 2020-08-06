@@ -1,5 +1,13 @@
+DROP TABLE t_transaction;
 DROP TABLE t_account;
+DROP TABLE t_qna_board_file;
+DROP TABLE t_qna_board;
 
+DROP TABLE t_code;
+DROP TABLE t_member;
+
+
+DROP TABLE t_account;
 CREATE TABLE t_account
 (
     account_number    VARCHAR2(50) NOT NULL,
@@ -56,9 +64,10 @@ CREATE TABLE t_member
     user_type    VARCHAR2(5) NOT NULL,
     email_id    VARCHAR2(50) NOT NULL,
     email_domain    VARCHAR2(50) NOT NULL,
-    tel1    NUMBER(10) NOT NULL,
-    tel2    NUMBER(10) NOT NULL,
-    tel3    NUMBER(10) NOT NULL,
+    tel1    VARCHAR2(10) NOT NULL,
+    tel2    VARCHAR2(10) NOT NULL,
+    tel3    VARCHAR2(10) NOT NULL,
+    post    VARCHAR2(10) NOT NULL,
     basic_address    VARCHAR2(100) NOT NULL,
     detail_address    VARCHAR2(100) NOT NULL,
     reg_date    VARCHAR2(50) NOT NULL
@@ -73,7 +82,14 @@ ALTER TABLE t_member
  USING INDEX 엔터티1_PK;
  
 ALTER TABLE t_member MODIFY(reg_date  
-DEFAULT to_char(sysdate - 7/24,'yyyy-mm-dd HH24:MI:SS'));
+DEFAULT to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS'));
+
+--ALTER TABLE t_member MODIFY (tel1 VARCHAR2(10));
+--ALTER TABLE t_member MODIFY (tel2 VARCHAR2(10));
+--ALTER TABLE t_member MODIFY (tel3 VARCHAR2(10));
+
+
+desc t_member;
 
 
 --------------------------------------------------------------------------------
@@ -105,7 +121,13 @@ ALTER TABLE t_qna_board MODIFY(reg_date
 DEFAULT to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS'));
 
 ALTER TABLE t_qna_board ADD CONSTRAINT t_qna_board_id_fk   
-FOREIGN KEY(id) REFERENCES t_member(id); --id 외래키 설정
+FOREIGN KEY(id) REFERENCES t_member(id) ON DELETE CASCADE; --id 외래키 설정
+
+ALTER TABLE t_qna_board DROP CONSTRAINT t_qna_board_id_fk; --id 외래키 설정
+
+
+ALTER TABLE t_qna_board ADD CONSTRAINT t_qna_board_id_fk2   
+FOREIGN KEY(id) REFERENCES t_member(id) ON DELETE CASCADE; --id 외래키 설정
 
 
 --------------------------------------------------------------------------------
@@ -145,7 +167,8 @@ CREATE TABLE t_transaction
     account_number    VARCHAR2(50) NOT NULL,
     counter_account_number    VARCHAR2(50) NOT NULL,
     transaction_type    VARCHAR2(10) NOT NULL,
-    transaction_amount    NUMBER(38) NOT NULL
+    transaction_amount    NUMBER(38) NOT NULL,
+    balance      NUMBER(38) NOT NULL
 );
 
 CREATE UNIQUE INDEX 엔터티1_PK2 ON t_transaction
@@ -155,11 +178,15 @@ ALTER TABLE t_transaction
  ADD CONSTRAINT 엔터티1_PK2 PRIMARY KEY ( transaction_date,account_number,counter_account_number )
  USING INDEX 엔터티1_PK2;
  
-ALTER TABLE t_transaction ADD CONSTRAINT t_transaction_account_number_fk
-FOREIGN KEY(account_number) REFERENCES t_account(account_number);
+-- ALTER TABLE t_transaction ADD CONSTRAINT t_transaction_account_number_fk
+-- FOREIGN KEY(account_number) REFERENCES t_account(account_number);
+
+-- ALTER TABLE t_transaction DROP CONSTRAINT t_transaction_account_number_fk;
+
+commit;
 
 ALTER TABLE t_transaction MODIFY(transaction_date  
-DEFAULT to_char(sysdate - 7/24,'yyyy-mm-dd HH24:MI:SS'));
+DEFAULT to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS'));
 
 ALTER TABLE t_transaction
 ADD CONSTRAINT chk_transaction_amount CHECK (transaction_amount > 0);
@@ -167,10 +194,11 @@ ADD CONSTRAINT chk_transaction_amount CHECK (transaction_amount > 0);
 
 ----데이터 삽입(insert)-------------------------------------------------------------------------------------------------------------
 ----t_member------------------------------------------------------------------------------------------------------
-insert into t_member(id,password,name,user_type,email_id,email_domain,tel1,tel2,tel3,basic_address,detail_address)
-    values('qwe', 'qwe', '나성주','U','nsj123','gmail.com','010','1231','6452','서울시','서초구');
-insert into t_member(id,password,name,user_type,email_id,email_domain,tel1,tel2,tel3,basic_address,detail_address) 
-    values('asd', 'asd', '김성재','U','ksj123','gmail.com','010','6531','0452','강원도','어딘가');
+insert into t_member(id,password,name,user_type,email_id,email_domain,tel1,tel2,tel3,post,basic_address,detail_address)
+    values('qwe', 'qwe', '나성주','U','nsj123','gmail.com','010','1231','6452','06172','서울시','서초구');
+insert into t_member(id,password,name,user_type,email_id,email_domain,tel1,tel2,tel3,post,basic_address,detail_address) 
+    values('asd', 'asd', '김성재','U','ksj123','gmail.com','010','6531','0452','08172','강원도','어딘가');
+    
 
 ----t_account------------------------------------------------------------------------------------------------------
 insert into t_account(account_number, account_bank, account_nickname, balance, id) 
@@ -210,16 +238,37 @@ commit;
 
 select * from t_member;
 select * from t_account;
+rollback;
+delete from t_account where account_number = '33423-43-8343';
 select * from t_qna_board order by reg_date;
 select * from t_qna_board order by to_number(board_no) DESC;
 select * from t_qna_board_file;
 
-select * from t_transaction;
+select * from t_transaction order by transaction_date desc;
 
 select * from t_qna_board_file;
 
 select * from t_code;
 
 select to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS') from dual;
+
+
+update t_account
+            set balance = (select balance from t_account where account_number = '123-1231-4352') + 70 
+            where account_number = '123-1231-4352';
+            
+delete from  t_member where id = '123';
+            
+commit;
+
+update t_member set email_id = 'sdass', tel1 = '321' where id = 'qwe';
+
+
+
+
+
+
+
+
 
 commit;

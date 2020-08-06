@@ -30,7 +30,8 @@
 								본인계좌: ${transaction.accountNumber }<br>
 								상대계좌: ${transaction.counterAccountNumber }<br>
 								거래유형: ${transaction.transactionType }<br>
-								거래금액: ${transaction.transactionAmount }<br>
+								거래금액: ${transaction.transactionAmount } 원<br>
+								잔액: ${transaction.balance } 원
 								<hr>
 							</c:forEach>
                 </main>

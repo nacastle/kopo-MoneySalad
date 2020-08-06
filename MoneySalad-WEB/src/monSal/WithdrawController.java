@@ -11,6 +11,7 @@ public class WithdrawController implements Controller{
 		request.setCharacterEncoding("utf-8");
 		String accountNumber = request.getParameter("accountNumber");
 		Long balance = Long.parseLong(request.getParameter("balance"));
+		System.out.println(balance);
 		
 		request.setAttribute("accountNumber", accountNumber);
 		request.setAttribute("balance", balance);

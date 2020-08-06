@@ -19,7 +19,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">입출금거래</h1>
+                        <h1 class="mt-4">입금</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/depoWithdrawMenu.do">입출금거래</a></li>
                             <li class="breadcrumb-item active">입금</li>

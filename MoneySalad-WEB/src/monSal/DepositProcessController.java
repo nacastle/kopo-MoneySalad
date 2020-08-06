@@ -9,19 +9,27 @@ import javax.servlet.http.HttpSession;
 import monSal.account.dao.AccountDAO;
 import monSal.account.vo.AccountVO;
 import monSal.login.vo.LoginVO;
+import monSal.transaction.dao.TransactionDAO;
 
 public class DepositProcessController implements Controller {
 	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		
+		HttpSession session = request.getSession(); // 세션 객체 얻기
 		String accountNumber = request.getParameter("accountNumber");
 		long depositAmount = Long.parseLong(request.getParameter("depositAmount"));
+		String name = ((LoginVO)session.getAttribute("userVO")).getName();
+		
+		TransactionDAO tDao = new TransactionDAO();
+		tDao.recordDeposit(accountNumber, name, depositAmount); // 나성주
 		
 		AccountDAO dao = new AccountDAO();
 		dao.depositDAO(accountNumber,depositAmount);
 		
-		HttpSession session = request.getSession(); // 세션 객체 얻기
+		
+		
 		LoginVO userVO = (LoginVO)session.getAttribute("userVO"); //
 		List<AccountVO> accountList = dao.selectAllAccountDAO(userVO);
 		session.setAttribute("accountList", accountList);

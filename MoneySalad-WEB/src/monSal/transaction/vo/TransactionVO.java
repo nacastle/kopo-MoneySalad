@@ -7,6 +7,7 @@ public class TransactionVO {
     private String counterAccountNumber;
     private String transactionType;
     private long transactionAmount;
+    private long balance;
     
     
 	public TransactionVO() {
@@ -14,16 +15,34 @@ public class TransactionVO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
 	public TransactionVO(String transactionDate, String accountNumber, String counterAccountNumber,
-			String transactionType, long transactionAmount) {
+			String transactionType, long transactionAmount, long balance) {
 		super();
 		this.transactionDate = transactionDate;
 		this.accountNumber = accountNumber;
 		this.counterAccountNumber = counterAccountNumber;
 		this.transactionType = transactionType;
 		this.transactionAmount = transactionAmount;
+		this.balance = balance;
 	}
+
 	
+	
+
+	public long getBalance() {
+		return balance;
+	}
+
+
+
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+
+
+
 	public String getTransactionDate() {
 		return transactionDate;
 	}
