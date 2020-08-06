@@ -46,11 +46,13 @@
                             <li class="breadcrumb-item active">캐슬계좌 생성</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h2>계좌생성양식</h2>
-		<hr width="80%">
+		<hr width="100%">
 		<br>
-		<h4><i>${userVO.name }님의 새롭게 생성될 캐슬은행 계좌의 계좌번호는 "${newAccountNumber }" 입니다.</i></h4>
+		<h4 class="text-primary"><i>${userVO.name }님의 새롭게 생성될 캐슬은행 계좌의 계좌번호는 "${newAccountNumber }" 입니다.</i></h4>
+		
+		
 		<br>
 		<form action="<%=request.getContextPath()%>/createAccountProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doRegister()">
@@ -67,10 +69,12 @@
 				</tr>
 
 			</table>
-			<p>* 계좌 생성 시 필요한 최소 입금 금액은 1,000원 입니다.</p>
+			<p class="text-danger">* 계좌 생성 시 필요한 최소 입금 금액은 1,000원 입니다.</p>
+			
+<!-- 			<p>* 계좌 생성 시 필요한 최소 입금 금액은 1,000원 입니다.</p> -->
 			<br>
-
-			<input type="submit" value="생성">
+		<input class="btn btn-outline-primary" style="margin-left: 73%" type="submit" value="생성">
+<!-- 			<input type="submit" value="생성"> -->
 		</form>
 		
 

@@ -44,10 +44,24 @@
 				<c:forEach items="${ boardList }" var="board" varStatus="loop">
 					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>>
 						<td>${ board.boardNo }</td>
-
+						
+						<c:choose>
+						<c:when test="${board.boardNo == board.originalNo }">
 						<td><a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out
 									value="${board.title }" />
 						</a></td>
+						</c:when>
+						<c:otherwise>
+						<td>
+						<c:forEach  begin="1" end="${board.boardDepth }">
+						RE:
+						</c:forEach>
+						
+						<a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out
+									value="${board.title }" />
+						</a></td>
+						</c:otherwise>
+						</c:choose>
 						<td>${ board.id }</td>
 							
 						<c:set var="dbSimpleDate" value="${fn:substring(board.regDate,0,10) }"/>						
@@ -70,6 +84,26 @@
 				</c:forEach>
 				
 			</table>
+			
+<%-- 			<c:forEach var="i" begin="1" end="${curLastPage }"> --%>
+			<c:if test="${block -1 != 0 }">
+			
+			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block -1 }&page=${groupStartPage-1 }" >이전</a> &nbsp;
+			</c:if>
+			<c:forEach var="i" begin="${groupStartPage }" end="${groupEndPage }">
+			<c:choose>
+			<c:when test="${page == i }">
+				${i }&nbsp;|&nbsp;
+			</c:when>
+			<c:otherwise>
+				<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block }&page=${i }" >${i }&nbsp;|</a>&nbsp;
+			
+			</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			<c:if test="${block != blockCnt}">
+			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block+1 }&page=${groupEndPage+1 }" >다음</a> &nbsp;
+			</c:if>
 			
 			<button onclick="goWriteForm()">새글 작성</button>
 			

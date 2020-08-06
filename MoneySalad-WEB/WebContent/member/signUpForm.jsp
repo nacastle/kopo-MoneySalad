@@ -168,7 +168,7 @@
 			
 		});
 		
-		$("#userId").keypress(function() {
+		$("#userId").keyup(function() {
 // 			alert("키 감지")
 			click = false;
 			$("#validateMsg").html("")
@@ -241,25 +241,44 @@
 			method="post" onsubmit="return doSignUp()">
 			
 			<hr>
-			<h1>회원가입 양식</h1>
+			<h2 align="center">회원가입 양식</h2>
 			<hr>
 			
+			
+			
 			아이디 <br>
-			<input type="text" name="id" id="userId">
-			<input type="button" value="중복검사" name="idCheck" id="validateId" onclick="isClick()"  > &nbsp; <!-- onkeyup="isChange()" --> <!--  onclick="idValidation('POST',document.getElementById('userId').value); isClick()" -->   
-										<span id="validateMsg"></span><br><br> 
+			<span class="input-group" style="width: 40%; margin: 1%;">
+  				<input type="text" class="form-control" name="id" id="userId"  placeholder="" aria-describedby="sizing-addon3">
+ 
+			</span>
+			
+<!-- 			<input type="text" name="id" id="userId"> -->
+<!-- 			<input type="button" class="btn btn-secondary" vl>Secondary</button> -->
+			<input type="button" class="btn btn-secondary" value="중복검사" style="margin-left: 1%;" name="idCheck" id="validateId" onclick="isClick()"  > &nbsp; <!-- onkeyup="isChange()" --> <!--  onclick="idValidation('POST',document.getElementById('userId').value); isClick()" -->   
+										<span id="validateMsg"></span><br><br>
 			이름 <br>
-			<input type="text" name="name"><br><br>
+			<span class="input-group" style="width: 30%; margin-left: 1%;margin-top: 1%;">
+  				<input type="text" class="form-control" name="name" placeholder="" aria-describedby="sizing-addon3">
+ 
+			</span><br>
+<!-- 			<input type="text" name="name"><br><br> -->
 			
-			비밀번호<br>
-			<input type="password" name="password"><br><br>
+			패스워드<br>
+			<span class="input-group" style="width: 40%; margin: 1%;">
+  				<input type="password" class="form-control" name="password" placeholder="" aria-describedby="sizing-addon3">
+ 
+			</span>
+<!-- 			<input type="password" name="password"><br><br> -->
 			
-			비밀번호 확인<br>
-			<input type="password" name="passwordConfirm"><br><br>
+			패스워드 확인<br>
+			<span class="input-group" style="width: 40%; margin: 1%;">
+  				<input type="password" class="form-control" name="passwordConfirm" placeholder="" aria-describedby="sizing-addon3">
+			</span><br>
+<!-- 			<input type="password" name="passwordConfirm"><br><br> -->
 			
-			이메일 <br>
-			<input type="text" name="email_id">@<input type="text" name="email_domain1">
-			<select name="email_domain2" id="email_domain2" onchange="selectEmail();">
+			이메일 <br>			
+			<input type="text" name="email_id"  style="margin: 1%;">@<input type="text" style="margin: 1%;" name="email_domain1">
+			<select name="email_domain2" id="email_domain2" style="margin-left: 0%;" onchange="selectEmail();">
 				<option value="type">직접입력</option>
 				<option value="naver.com">naver.com</option>
 				<option value="gmail.com">gmail.com</option>
@@ -267,23 +286,33 @@
 			</select><br><br>
 			
 			Tel<br>
-			<input type="text" name="tel1" maxlength="3" style="width: 5%">
-			-<input type="text" style="width: 8%" name="tel2" maxlength="4">
-			-<input type="text" style="width: 8%" name="tel3" maxlength="4"><br><br>
+			<input type="text" name="tel1" maxlength="3" style="width: 8%; margin: 1%;">
+			ㅡ<input type="text" style="width: 15%; margin: 1%;" name="tel2" maxlength="4">
+			ㅡ<input type="text" style="width: 15%; margin: 1%;" name="tel3" maxlength="4"><br><br>
 			
 			우편번호<br>
-			<input type="text" name="post" maxlength="5"><br><br>
+			<span class="input-group" style="width: 30%; margin-left: 1%;margin-top: 1%;">
+  				<input type="text" class="form-control" name="post" maxlength="5" placeholder="" aria-describedby="sizing-addon3">
+ 
+			</span><br>
+<!-- 			<input type="text" name="post" maxlength="5"><br><br> -->
 			
 			상위주소
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상세주소<br>
-			<input type="text" name="basic_addr">
-			<input type="text" name="detail_addr"><br><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상세주소<br>
+			<input type="text" name="basic_addr" style="width: 40%; margin: 1%;">
+			<input type="text" name="detail_addr" style="width: 50%; margin: 1%;"><br><br>
 			
-			회원유형<br>
-			S<input type="radio" name="type" value="S">
-			U<input type="radio" name="type" value="U" checked="checked"><br><br>
+<!-- 			회원유형<br> -->
+<!-- 			S<input type="radio" name="type" value="S"> -->
+<!-- 			U<input type="radio" name="type" value="U" checked="checked"><br><br> -->
+<!-- 			<div  style="text-align: center;"> -->
+			<input type="hidden" name="type" style="text-align: center;" value="U"  >
+<!-- 			</div> -->
 			
-			<input type="submit" value="가입하기">
+<!-- 			<button type="button" class="btn btn-outline-primary">Primary</button> -->
+			<div style="text-align: right; margin-right: 5%;"> 
+			<input class="btn btn-outline-primary" type="submit"  value="가입하기">
+			</div>
 		</form>
                                     </div>
                                     <div class="card-footer text-center">

@@ -41,16 +41,16 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">계좌관리</h1>
+                        <h1 class="mt-4">별칭수정</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/manageAccount.do">계좌관리</a></li>
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/editAccountNicknameForm.do">계좌선택</a></li>
                             <li class="breadcrumb-item active">별칭수정</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h2>별칭수정양식</h2>
-		<hr width="80%">
+		<hr width="100%">
 		<br>
 		<br>
 		<form action="<%=request.getContextPath()%>/editAccountNicknameProcess.do" name="wForm" method="post"
@@ -65,8 +65,9 @@
 
 			</table>
 			<br>
+			<input class="btn btn-outline-primary" style="margin-left: 2%" type="submit" value="수정">
 
-			<input type="submit" value="수정">
+<!-- 			<input type="submit" value="수정"> -->
 		</form>
 		
 

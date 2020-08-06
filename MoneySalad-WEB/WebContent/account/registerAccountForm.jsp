@@ -46,14 +46,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">캐슬계좌 생성</h1>
+                        <h1 class="mt-4">새 계좌 등록</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">새 계좌 등록</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h3>계좌등록양식</h3>
-		<hr width="80%">
+		<hr width="100%">
 		<br>
 		<form action="<%=request.getContextPath()%>/registerAccountProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doRegister()">
@@ -74,17 +74,18 @@
 				</tr>
 				<tr>
 					<th>계좌번호 입력</th>
-					<td><input type="text" name="accountNumber" size="10%"></td>
+					<td><input type="text" name="accountNumber" size="15%"></td>
 				</tr>
 				<tr>
 					<th>별칭 입력</th>
-					<td><input type="text" name="nickname" size="10%"></td>
+					<td><input type="text" name="nickname" size="15%"></td>
 				</tr>
 
 			</table>
 			<br>
+		<input class="btn btn-outline-primary" style="margin-left: 73%" type="submit" value="등록">
 
-			<input type="submit" value="등록">
+<!-- 			<input type="submit" value="등록"> -->
 		</form>
 		
 

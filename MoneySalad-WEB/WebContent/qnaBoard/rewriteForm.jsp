@@ -84,21 +84,24 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">새글 작성</h1>
+                        <h1 class="mt-4">답글 작성</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
-                            <li class="breadcrumb-item active">새글 작성</li>
+                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/board.do?no=${boardNo}">게시글</a></li>
+                            <li class="breadcrumb-item active">답글 작성</li>
                         </ol>
                         
             <hr width="80%">
-		<h2>게시물 등록폼</h2>
+		<h2>답글 작성폼${boardNo }</h2>
 		<hr width="80%">
 		<br>
-		<form action="<%=request.getContextPath()%>/writeProcess.do" name="wForm" method="post"
+		<form action="<%=request.getContextPath()%>/rewriteProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doWrite()"
 			enctype="multipart/form-data">
 
 			<input type="hidden" name="writer" value="${userVO.id }">
+			<input type="hidden" name="parentNo" value="${boardNo }">
+			
 			<table border="1" style="width: 80%">
 				<tr>
 					<th width="23%">제목</th>

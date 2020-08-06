@@ -103,7 +103,10 @@ CREATE TABLE t_qna_board
     content    VARCHAR2(2000) NOT NULL,
     id    VARCHAR2(50) NOT NULL,
     view_cnt    NUMBER(38) NOT NULL,
-    reg_date    VARCHAR2(50) NOT NULL
+    reg_date    VARCHAR2(50) NOT NULL,
+    original_no   VARCHAR2(100) NOT NULL,
+    parent_no VARCHAR2(100) NOT NULL,
+    board_depth NUMBER(10) NOT NULL
 );
 
 CREATE UNIQUE INDEX 엔터티1_PK4 ON t_qna_board
@@ -117,17 +120,17 @@ CREATE SEQUENCE seq_t_qna_board_board_no NOCACHE;
  
 ALTER TABLE t_qna_board MODIFY(view_cnt  DEFAULT 0);
 
+ALTER TABLE t_qna_board MODIFY(board_depth  DEFAULT 0);
+
+
 ALTER TABLE t_qna_board MODIFY(reg_date  
 DEFAULT to_char(sysdate - 0/24,'yyyy-mm-dd HH24:MI:SS'));
 
 ALTER TABLE t_qna_board ADD CONSTRAINT t_qna_board_id_fk   
 FOREIGN KEY(id) REFERENCES t_member(id) ON DELETE CASCADE; --id 외래키 설정
 
-ALTER TABLE t_qna_board DROP CONSTRAINT t_qna_board_id_fk; --id 외래키 설정
+-- ALTER TABLE t_qna_board DROP CONSTRAINT t_qna_board_id_fk; --id 외래키 설정
 
-
-ALTER TABLE t_qna_board ADD CONSTRAINT t_qna_board_id_fk2   
-FOREIGN KEY(id) REFERENCES t_member(id) ON DELETE CASCADE; --id 외래키 설정
 
 
 --------------------------------------------------------------------------------
@@ -211,16 +214,16 @@ insert into t_account(account_number, account_bank, account_nickname, balance, i
     values('3765-752-2345','국민은행','커피','700000','asd');
     
 ----t_qna_board------------------------------------------------------------------------------------------------------\
-insert into t_qna_board(board_no, title,content,id) 
-    values('1','입금은 어떻게하나요?','입금하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','asd');
-insert into t_qna_board(board_no, title,content,id) 
-    values('2','출금은 어떻게하나요?','출금하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','asd');
-insert into t_qna_board(board_no, title,content,id) 
-    values('3','이체는 어떻게하나요?','이체하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe');
-insert into t_qna_board(board_no, title,content,id) 
-    values('4','계좌삭제는 어떻게하나요?','삭제하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe');
-insert into t_qna_board(board_no, title,content,id) 
-    values('5','시간설정이 잘되나요??','되주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe');
+insert into t_qna_board(board_no, title,content,id, original_no, parent_no) 
+    values('1','입금은 어떻게하나요?','입금하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','asd','1','1');
+insert into t_qna_board(board_no, title,content,id,original_no, parent_no) 
+    values('2','출금은 어떻게하나요?','출금하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','asd','2','2');
+insert into t_qna_board(board_no, title,content,id,original_no, parent_no) 
+    values('3','이체는 어떻게하나요?','이체하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','3','3');
+insert into t_qna_board(board_no, title,content,id,original_no, parent_no) 
+    values('4','계좌삭제는 어떻게하나요?','삭제하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','4','4');
+insert into t_qna_board(board_no, title,content,id,original_no,parent_no) 
+    values('5','시간설정이 잘되나요??','되주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','5','5');
 commit;
 
 ----t_transaction------------------------------------------------------------------------------------------------------\
@@ -241,7 +244,43 @@ select * from t_account;
 rollback;
 delete from t_account where account_number = '33423-43-8343';
 select * from t_qna_board order by reg_date;
-select * from t_qna_board order by to_number(board_no) DESC;
+
+select * from t_qna_board
+order by to_number(original_no) desc, reg_date;
+
+select * from t_qna_board order by to_number(original_no) DESC, parent_no desc, board_depth;
+
+select * from(select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date) where rownum <= 10; -- 위에서 10개 추출
+select * from(select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date) where rownum>= 1 and rownum <=20;
+select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date;
+
+SELECT * 
+  FROM(
+        SELECT ROWNUM AS RNUM, A.*
+            FROM ( select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date ) A
+         WHERE ROWNUM <= 10*2
+      )
+ WHERE RNUM >10*1;
+ 
+ select count(*) from t_qna_board;
+
+--5n(n+1)/2
+--5n(n-1)/2
+
+SELECT *
+  FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY board_no desc) NUM
+             , A.*
+          FROM t_qna_board A
+         order by to_number(original_no) desc, parent_no, reg_date
+        ) 
+ WHERE NUM BETWEEN 1 AND 10;
+
+select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date;
+
+select * from t_qna_board where original_no = '146' order by parent_no desc, reg_date desc;
+
+
 select * from t_qna_board_file;
 
 select * from t_transaction order by transaction_date desc;

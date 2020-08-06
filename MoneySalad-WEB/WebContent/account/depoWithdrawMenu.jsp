@@ -29,6 +29,15 @@
         		return true;
 
         	}
+        	
+        	function goDeposit() {
+        		location.href="<%=request.getContextPath() %>/depositForm.do"
+				
+			}
+        	function goWithdraw() {
+        		location.href="<%=request.getContextPath() %>/withdrawForm.do"
+				
+			}
 
 
         </script>
@@ -46,15 +55,20 @@
                             <li class="breadcrumb-item active">입출금거래</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h2>서비스 선택</h2>
-		<hr width="80%">
+		<hr>
 		<br>
 		<br>
 		
-		<a href="<%=request.getContextPath() %>/depositForm.do">입금</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="<%=request.getContextPath() %>/withdrawForm.do">출금</a>
+  	<button type="button" onclick="goDeposit()" class="btn btn-success btn-group-lg" style="width:20%;  height:100px;"><h3>입금</h3></button>
+  	<button type="button" onclick="goWithdraw()" class="btn btn-warning  btn-group-lg" style="width:20%;  height:100px;"><h3>출금</h3></button>
+  	
+  	
+		
+<%-- 		<a href="<%=request.getContextPath() %>/depositForm.do">입금</a> --%>
+<!-- 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<%-- 		<a href="<%=request.getContextPath() %>/withdrawForm.do">출금</a> --%>
 		
 
 	</div>		

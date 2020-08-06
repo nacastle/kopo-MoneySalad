@@ -47,16 +47,16 @@
                             <li class="breadcrumb-item active">이체정보</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h2>이체정보 입력</h2>
-		<hr width="80%">
-		<br>
+		<hr width="100%">
+<!-- 		<br> -->
 		<br>
 		<form action="<%=request.getContextPath()%>/transferProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doRegister()">
 			
 			<input type="hidden" name="accountNumber" value="${accountNumber }">
-			현재 잔액 : ${balance } 원
+<%-- 			현재 잔액 : ${balance } 원 --%>
 			<table border="1" style="width: 80%">
 			<tr>
 					<th width="23%">받는 분 은행</th>
@@ -80,9 +80,11 @@
 				</tr>
 
 			</table>
-			<br>
+			<p class="text-info"><i>현재 잔액 : ${balance } 원</i></p>
+<!-- 			<br> -->
+			<input class="btn btn-outline-primary" style="margin-left: 73%" type="submit" value="송금">
 
-			<input type="submit" value="송금">
+<!-- 			<input type="submit" value="송금"> -->
 		</form>
 		
 

@@ -25,15 +25,69 @@
                             <li class="breadcrumb-item active">특정계좌조회</li>
                         </ol>
                         <h2>입출금내역</h2>
-							<c:forEach items="${transactionList }" var="transaction">
-								거래일자: ${transaction.transactionDate }<br>
-								본인계좌: ${transaction.accountNumber }<br>
-								상대계좌: ${transaction.counterAccountNumber }<br>
-								거래유형: ${transaction.transactionType }<br>
-								거래금액: ${transaction.transactionAmount } 원<br>
-								잔액: ${transaction.balance } 원
-								<hr>
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">거래유형</th>
+								<th scope="col">거래일자</th>
+								<th scope="col">거래대상</th>
+								<th scope="col">My계좌</th>
+								<th scope="col">거래금액</th>
+								<th scope="col">잔액</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach items="${transactionList }" var="transaction">
+								<c:choose>
+								<c:when test="${transaction.transactionType == 'D' }">
+							<tr class="table-success">
+								<th scope="row">
+								입금
+								</th>
+								
+								<td>${transaction.transactionDate }</td>
+								<td>${transaction.counterAccountNumber }</td>
+								<td>${transaction.accountNumber }</td>
+								<td>${transaction.transactionAmount } 원</td>
+								<td>${transaction.balance } 원</td>
+							</tr>
+							</c:when>
+								<c:otherwise>
+								<tr class="table-warning">
+								<th scope="row">
+								출금
+								</th>
+								
+								<td>${transaction.transactionDate }</td>
+								<td>${transaction.counterAccountNumber }</td>
+								<td>${transaction.accountNumber }</td>
+								<td>${transaction.transactionAmount } 원</td>
+								<td>${transaction.balance } 원</td>
+							</tr>
+								</c:otherwise>
+								</c:choose>
 							</c:forEach>
+							
+<%-- 							</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<!-- 								출금 -->
+<%-- 								</c:otherwise> --%>
+<%-- 								</c:choose> --%>
+<!-- 								</th> -->
+
+						</tbody>
+					</table>
+
+<%-- 					<c:forEach items="${transactionList }" var="transaction"> --%>
+<%-- 								거래일자: ${transaction.transactionDate }<br> --%>
+<%-- 								본인계좌: ${transaction.accountNumber }<br> --%>
+<%-- 								상대계좌: ${transaction.counterAccountNumber }<br> --%>
+<%-- 								거래유형: ${transaction.transactionType }<br> --%>
+<%-- 								거래금액: ${transaction.transactionAmount } 원<br> --%>
+<%-- 								잔액: ${transaction.balance } 원 --%>
+<!-- 								<hr> -->
+<%-- 							</c:forEach> --%>
                 </main>
                 	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
                 

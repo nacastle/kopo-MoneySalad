@@ -40,7 +40,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">입출금거래</h1>
+                        <h1 class="mt-4">입금금액</h1>
                         <ol class="breadcrumb mb-4">
                         
 							<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/depoWithdrawMenu.do">입출금거래</a></li>
@@ -48,26 +48,36 @@
                             <li class="breadcrumb-item active">입금금액</li>
                         </ol>
                         
-         <hr width="80%">
-<!-- 		<h2>입금할 금액</h2> -->
-		<hr width="80%">
-		<br>
-		<br>
+		<h2>입금할 금액</h2>
+		<hr width="100%">
+		
+		
 		<form action="<%=request.getContextPath()%>/depositProcess.do" name="wForm" method="post"
 			autocomplete="off" onsubmit="return doRegister()">
 			
+			
 			<input type="hidden" name="accountNumber" value="${accountNumber }">
-			현재 잔액 : ${balance } 원
-			<table border="1" style="width: 80%">
-				<tr>
-					<th width="23%">입금할 금액</th>
-					<td><input type="number" name="depositAmount" size="20%">&nbsp;원</td>
-				</tr>
+		
+<%-- 			현재 잔액 : ${balance } 원 --%>
+			
+			<div class="form-group">
+    		  <label for="exampleInputEmail1">입금할 금액</label>
+     		 <input type="number" name="depositAmount" style="width: 20%" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+     		 <small id="emailHelp" class="form-text text-muted">입금하실 금액을 입력해주세요.</small>	<p class="text-info"><i>현재 잔액 : ${balance } 원</i></p>
+  		  </div>
+    
+    
+<!-- 			<table border="1" style="width: 80%"> -->
+<!-- 				<tr> -->
+<!-- 					<th width="23%">입금할 금액</th> -->
+<!-- 					<td><input type="number" name="depositAmount" size="20%">&nbsp;원</td> -->
+<!-- 				</tr> -->
 
-			</table>
+<!-- 			</table> -->
 			<br>
-
-			<input type="submit" value="입금">
+<!-- 			<button type="button" class="btn btn-outline-primary">Primary</button> -->
+			
+			<input class="btn btn-outline-primary" style="margin-left: 2%" type="submit" value="입금">
 		</form>
 		
 

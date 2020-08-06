@@ -13,15 +13,14 @@ import monSal.QnAboard.vo.BoardFileVO;
 import monSal.QnAboard.vo.BoardVO;
 import util.KopoFileNamePolicy;
 
-public class EditProcessController implements Controller {
+public class RewriteProcessController implements Controller {
 	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		
-		request.setCharacterEncoding("UTF-8");
-		
+		request.setCharacterEncoding("utf-8");
+
 		String saveFolder = "C:/Users/Na/Desktop/kopo_edu/MoneySalad/MoneySalad-WEB/WebContent/upload";  // save 할 경로
 
 		MultipartRequest multi = new MultipartRequest(request, saveFolder, 
@@ -30,21 +29,41 @@ public class EditProcessController implements Controller {
 														);  // KopoFileNamePolicy : 파일명 자동으로 바꿔줌
 
 
-		// 1단계 : 게시물 저장(t_board)
-		String boardNo = multi.getParameter("boardNo");
-		String title = multi.getParameter("title");
-		String content = multi.getParameter("content");
-		
-
-		BoardVO board = new BoardVO();
-		board.setBoardNo(boardNo);
-		board.setTitle(title);
-		board.setContent(content);
-		
 		BoardDAO dao = new BoardDAO();
-		dao.editBoard( board);
+		// 1단계 : 게시물 저장(t_board)
+		String title = multi.getParameter("title");
+		String id = multi.getParameter("writer");
+//		System.out.println("id: " + id);
+		String content = multi.getParameter("content");
+		String parentNo = multi.getParameter("parentNo");
+		
+		BoardVO parentBoard = dao.selectBoard(parentNo);
+		String originalNo = parentBoard.getOriginalNo();
+//		System.out.println("부모번호" + parentNo);
+
+		String boardNo = dao.selectBoardNo();
+		request.setAttribute("no", boardNo); // 불필요해보임
+
+		// 게시물 번호 추출(seq_t_board_no)
+		BoardVO childBoard = new BoardVO();
+
+		childBoard.setTitle(title);
+		childBoard.setId(id);
+		childBoard.setContent(content);
+		childBoard.setBoardNo(boardNo);
+		childBoard.setOriginalNo(originalNo);
+		childBoard.setParentNo(parentNo);
+
+		dao.rewriteBoard(childBoard, parentBoard);
+		
+		System.out.println("getBoardNo(): " + parentBoard.getBoardNo());
+		System.out.println("getOriginalNo(): " + parentBoard.getOriginalNo());
 		
 		
+		if(parentBoard.getBoardNo() != parentBoard.getOriginalNo()) {
+//			parentBoard.setParentNo(parentBoard.getBoardNo());
+			dao.rewriteUpdateParent(parentBoard);
+		}
 
 		// 2단계 : 첨부파일 저장(t_board_file)
 		Enumeration<String> files =  multi.getFileNames();
@@ -66,34 +85,13 @@ public class EditProcessController implements Controller {
 			}
 		}
 		
-	
-		//////////여기부터 옛날거////////////////////////////////////////////////////////
-		
-		
-//		String boardNo = request.getParameter("boardNo");
-//		String title = request.getParameter("title");
-//		String content = request.getParameter("content");
-		
-//		System.out.println(boardNo);
-//		System.out.println(title);
-//		System.out.println(content);
-//		
-//		BoardVO board = new BoardVO();
-//		board.setBoardNo(boardNo);
-//		board.setTitle(title);
-//		board.setContent(content);
-//		
-//		BoardDAO dao = new BoardDAO();
-//		dao.editBoard(boardNo, board);
 		
 		request.setAttribute("url", request.getContextPath()+"/board.do?no="+boardNo);
-		request.setAttribute("msg", "게시글 수정이 완료되었습니다.");
+		request.setAttribute("msg", "답글이 등록되었습니다.");
 		
 		
 		
-
-		
-		return "/qnaBoard/editProcess.jsp";
-
+		return "/qnaBoard/rewriteProcess.jsp";
 	}
+
 }

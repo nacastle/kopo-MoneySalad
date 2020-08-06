@@ -8,6 +8,9 @@ public class BoardVO {
 	private String id;
 	private int viewCnt;
 	private String regDate;
+	private String originalNo;
+	private String parentNo;
+	private int boardDepth;
 	
 	
 	
@@ -16,7 +19,12 @@ public class BoardVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardVO(String boardNo, String title, String content, String id, int viewCnt, String regDate) {
+	
+	
+
+
+	public BoardVO(String boardNo, String title, String content, String id, int viewCnt, String regDate,
+			String originalNo, String parentNo, int boardDepth) {
 		super();
 		this.boardNo = boardNo;
 		this.title = title;
@@ -24,7 +32,46 @@ public class BoardVO {
 		this.id = id;
 		this.viewCnt = viewCnt;
 		this.regDate = regDate;
+		this.originalNo = originalNo;
+		this.parentNo = parentNo;
+		this.boardDepth = boardDepth;
 	}
+
+
+
+	public String getParentNo() {
+		return parentNo;
+	}
+
+
+
+
+	public void setParentNo(String parentNo) {
+		this.parentNo = parentNo;
+	}
+
+
+
+
+	public int getBoardDepth() {
+		return boardDepth;
+	}
+
+	public void setBoardDepth(int boardDepth) {
+		this.boardDepth = boardDepth;
+	}
+
+
+	public String getOriginalNo() {
+		return originalNo;
+	}
+	
+	public void setOriginalNo(String originalNo) {
+		this.originalNo = originalNo;
+	}
+
+
+
 	public String getBoardNo() {
 		return boardNo;
 	}

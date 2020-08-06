@@ -29,6 +29,15 @@
         		return true;
 
         	}
+        	
+        	function goEdit() {
+        		location.href="<%=request.getContextPath() %>/editAccountNicknameForm.do"
+				
+			}
+        	function goDelete() {
+        		location.href="<%=request.getContextPath() %>/deleteAccountForm.do"
+				
+			}
 
 
         </script>
@@ -46,15 +55,19 @@
                             <li class="breadcrumb-item active">계좌관리</li>
                         </ol>
                         
-         <hr width="80%">
+<!--          <hr width="80%"> -->
 		<h2>관리항목 선택</h2>
-		<hr width="80%">
+		<hr width="100%">
 		<br>
 		<br>
 		
-		<a href="<%=request.getContextPath() %>/editAccountNicknameForm.do">계좌별칭 수정</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="<%=request.getContextPath() %>/deleteAccountForm.do">계좌 삭제</a>
+		
+	<button type="button" onclick="goEdit()" class="btn btn-info btn-group-lg" style="width:20%;  height:100px;"><h3>계좌별칭 수정</h3></button>
+  	<button type="button" onclick="goDelete()" class="btn btn-warning  btn-group-lg" style="width:20%;  height:100px;"><h3>계좌 삭제</h3></button>
+		
+<%-- 		<a href="<%=request.getContextPath() %>/editAccountNicknameForm.do">계좌별칭 수정</a> --%>
+<!-- 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<%-- 		<a href="<%=request.getContextPath() %>/deleteAccountForm.do">계좌 삭제</a> --%>
 		
 
 	</div>		

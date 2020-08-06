@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -24,8 +24,13 @@
         				location.href = "/MoneySalad-WEB/deleteBoard.do?no=${board.boardNo}";
         			}
         			break;
+        		case 'R':
+        			if (confirm('답글을 작성하시겠습니까?')) {
+        				location.href = "/MoneySalad-WEB/rewriteForm.do?no=${board.boardNo}";
+        			}
+        			break;
         		case 'L':
-        			location.href = "/MoneySalad-WEB/qnaBoardList.do";
+        			location.href = "/MoneySalad-WEB/qnaBoardList.do?block=1&page=1";
         			break;
         		}
         	}
@@ -45,7 +50,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">QnA</h1>
+                        <h1 class="mt-4">게시글</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
                             <li class="breadcrumb-item active">게시글</li>
@@ -99,7 +104,8 @@
 				<input type="button" value="수정" onclick="doAction('U')">&nbsp;&nbsp;
 				<input type="button" value="삭제" onclick="doAction('D')">&nbsp;&nbsp;
 			</c:if>
-			<input type="button" value="목록" onclick="doAction('L')">&nbsp;&nbsp;
+				<input type="button" value="답글" onclick="doAction('R')">&nbsp;&nbsp;
+				<input type="button" value="목록" onclick="doAction('L')">&nbsp;&nbsp;
 
 		</div>	
                 </main>

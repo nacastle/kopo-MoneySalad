@@ -41,6 +41,10 @@
         		if (checkExt(f.attachfile2)) {
         			return false
         		}
+        		
+        		if(confirm("등록하시겠습니까?")){
+        			return true;
+        		}
 
         		return true;
 
@@ -67,8 +71,7 @@
         	}
 
         	function doList() {
-        		location.href = "<%=request.getContextPath()%>/qnaBoardList.do"
-
+        		location.href = "<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1"
         	}
         </script>
     </head>
@@ -80,10 +83,11 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">QnA</h1>
+                        <h1 class="mt-4">글 수정</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/qnaBoardList.do">QnA</a></li>
-                            <li class="breadcrumb-item active">새글 작성</li>
+                            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/board.do?no=${board.boardNo }">게시글</a></li>
+                            <li class="breadcrumb-item active">글 수정</li>
                         </ol>
                         
             <hr width="80%">

@@ -34,6 +34,30 @@
                             <li class="breadcrumb-item active">계좌삭제</li>
                         </ol>
                         <div class="row">
+                        
+                        <c:forEach items="${accountList }" var="account"> 
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-2">
+<%--                                     <span class="card-title">${account.bank }</span> <span class="card-title text-right">${account.nickname}</span><br> --%>
+                                    <h4 class="card-body font-weight-bold">${account.bank }</h4><h5 class="card-body font-weight-bold text-right""> ${account.nickname}</h5>
+                                    <h5 class="card-title">&nbsp;&nbsp;${account.accountNumber }</h5>
+                                    <h5 class="card-body text-right">${account.balance } 원</h5>
+<%--                                     <div class="card-text text-right">${account.balance } 원</div> --%>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <form action="<%=request.getContextPath()%>/deleteAccountProcess.do" method="post">
+                                    	<input type="hidden" name="accountNumber" value="${account.accountNumber}">
+<%--                                     	<input type="hidden" name="balance" value="${account.balance}"> --%>
+<!--                                     	<div style="text-align: right" > -->
+                                    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    	<button class="btn btn-info" type="submit"  name="accountNumber">계좌삭제</button>
+<!--                                     	</div> -->
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </c:forEach>
+                            
+                            
                         <c:forEach items="${accountList }" var="account"> 
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">

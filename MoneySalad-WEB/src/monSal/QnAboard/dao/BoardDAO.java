@@ -13,7 +13,7 @@ import util.JDBCClose;
 
 public class BoardDAO {
 
-	public List<BoardVO> selectAllBoard() {
+	public List<BoardVO> selectAllBoard(int page, int boardPerPage) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -22,13 +22,23 @@ public class BoardDAO {
 		try {
 
 			conn = new ConnectionFactory().getConnection();
+			
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select board_no, title, id, reg_date, view_cnt ");
-			sql.append(" from t_qna_board ");
-			sql.append(" order by to_number(board_no) desc ");
+			sql.append(" SELECT *  ");
+			sql.append(" FROM( " );
+			sql.append(" SELECT ROWNUM AS RNUM, A.* ");
+			sql.append(" FROM ( select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date ) A ");
+			sql.append(" WHERE ROWNUM <= ?*?");
+			sql.append(" ) ");
+			sql.append("  WHERE RNUM > ?*(?-1)  ");
 
 			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, boardPerPage);
+			pstmt.setInt(2, page);
+			pstmt.setInt(3, boardPerPage);
+			pstmt.setInt(4, page);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -41,12 +51,16 @@ public class BoardDAO {
 				String id = rs.getString("id");
 				String regDate = rs.getString("reg_date");
 				int viewCnt = rs.getInt("view_cnt");
+				String originalNo = rs.getString("original_no");
+				int boardDepth = rs.getInt("board_depth");
 
 				boardVO.setBoardNo(boardNo);
 				boardVO.setTitle(title);
 				boardVO.setId(id);
 				boardVO.setRegDate(regDate);
 				boardVO.setViewCnt(viewCnt);
+				boardVO.setOriginalNo(originalNo);
+				boardVO.setBoardDepth(boardDepth);
 
 				boardList.add(boardVO);
 			}
@@ -62,6 +76,97 @@ public class BoardDAO {
 
 		return boardList;
 	}
+	
+	public int cntBoard() {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int boardCnt = 0;
+		
+		try {
+			
+			conn = new ConnectionFactory().getConnection();
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append(" select count(*) from t_qna_board  ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				boardCnt = rs.getInt(1);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			
+			JDBCClose.close(conn, pstmt);
+			
+		}
+		
+		return boardCnt;
+	}
+//	public List<BoardVO> selectAllBoard() {
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		List<BoardVO> boardList = new ArrayList<BoardVO>();
+//		
+//		try {
+//			
+//			conn = new ConnectionFactory().getConnection();
+//			
+//			StringBuilder sql = new StringBuilder();
+//			sql.append("select board_no, title, id, reg_date, view_cnt, original_no, board_depth ");
+//			sql.append(" from t_qna_board ");
+//			sql.append(" order by to_number(original_no) desc, parent_no, reg_date  ");
+//			
+//			pstmt = conn.prepareStatement(sql.toString());
+//			
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				
+//				BoardVO boardVO = new BoardVO();
+//				
+//				String boardNo = rs.getString("board_no");
+//				String title = rs.getString("title");
+//				String id = rs.getString("id");
+//				String regDate = rs.getString("reg_date");
+//				int viewCnt = rs.getInt("view_cnt");
+//				String originalNo = rs.getString("original_no");
+//				int boardDepth = rs.getInt("board_depth");
+//				
+//				boardVO.setBoardNo(boardNo);
+//				boardVO.setTitle(title);
+//				boardVO.setId(id);
+//				boardVO.setRegDate(regDate);
+//				boardVO.setViewCnt(viewCnt);
+//				boardVO.setOriginalNo(originalNo);
+//				boardVO.setBoardDepth(boardDepth);
+//				
+//				boardList.add(boardVO);
+//			}
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		} finally {
+//			
+//			JDBCClose.close(conn, pstmt);
+//			
+//		}
+//		
+//		return boardList;
+//	}
 
 	public BoardVO selectBoard(String no) {
 
@@ -74,7 +179,7 @@ public class BoardDAO {
 			conn = new ConnectionFactory().getConnection();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select board_no, title, content, id, view_cnt, reg_date ");
+			sql.append("select board_no, title, content, id, view_cnt, reg_date, original_no, board_depth ");
 			sql.append(" from t_qna_board ");
 			sql.append(" where board_no = ? ");
 
@@ -92,6 +197,8 @@ public class BoardDAO {
 				String id = rs.getString("id");
 				int viewCnt = rs.getInt("view_cnt");
 				String regDate = rs.getString("reg_date");
+				String originalNo = rs.getString("original_no");
+				int boardDepth = rs.getInt("board_depth");
 
 				boardVO.setBoardNo(boardNo);
 				boardVO.setTitle(title);
@@ -99,6 +206,8 @@ public class BoardDAO {
 				boardVO.setId(id);
 				boardVO.setViewCnt(viewCnt);
 				boardVO.setRegDate(regDate);
+				boardVO.setOriginalNo(originalNo);
+				boardVO.setBoardDepth(boardDepth);
 
 			}
 
@@ -168,16 +277,72 @@ public class BoardDAO {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 
-			sql.append("insert into t_qna_board(board_no, title, id, content) ");
-			sql.append("	values(?, ?, ?, ?) ");
+			sql.append("insert into t_qna_board(board_no, title, id, content, original_no, parent_no) ");
+			sql.append("	values(?, ?, ?, ?, ?, ?) ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, board.getBoardNo());
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getId());
 			pstmt.setString(4, board.getContent());
+			pstmt.setString(5, board.getBoardNo());
+			pstmt.setString(6, "0");
 			pstmt.executeUpdate();
 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JDBCClose.close(conn, pstmt);
+		}
+	}
+	
+	
+	public void rewriteBoard(BoardVO childBoard, BoardVO parentBoard) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		
+		try {
+			conn = new ConnectionFactory().getConnection();
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("insert into t_qna_board(board_no, title, id, content, original_no, board_depth, parent_no) ");
+			sql.append("	values(?, ?, ?, ?, ?, ?, ?) ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, childBoard.getBoardNo());
+			pstmt.setString(2, childBoard.getTitle());
+			pstmt.setString(3, childBoard.getId());
+			pstmt.setString(4, childBoard.getContent());
+			pstmt.setString(5, parentBoard.getOriginalNo());
+			pstmt.setInt(6, parentBoard.getBoardDepth()+1);
+			pstmt.setString(7, childBoard.getParentNo());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JDBCClose.close(conn, pstmt);
+		}
+	}
+	public void rewriteUpdateParent(BoardVO parentBoard) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		
+		try {
+			conn = new ConnectionFactory().getConnection();
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("update t_qna_board set parent_no = ? where board_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, parentBoard.getBoardNo());
+			pstmt.setString(2, parentBoard.getBoardNo());
+			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -308,7 +473,7 @@ public class BoardDAO {
 	}
 	
 	
-	public void editBoard(String boardNo, BoardVO board) {
+	public void editBoard(BoardVO board) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -322,7 +487,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, boardNo);
+			pstmt.setString(3, board.getBoardNo());
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {

@@ -85,9 +85,16 @@
 <!--                                 Tables -->
 <!--                             </a> -->
                             <div class="sb-sidenav-menu-heading">Board</div>
-                            <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1">
+<%--                             <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do"> --%>
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 	QnA
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Introduce</div>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/introduceCompany.do">
+<%--                             <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do"> --%>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                	회사소개
                             </a>
                         </div>
                     </div>

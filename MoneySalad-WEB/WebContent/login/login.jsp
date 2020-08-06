@@ -47,13 +47,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
+<!--                                                     <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /> -->
+<!--                                                     <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label> -->
                                                 </div>
                                             </div>
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <button class="btn btn-primary" type="submit" >Login</button>
+                                                <a class="small" href="password.html"></a>
+                                                <button class="btn btn-primary"  type="submit" >Login</button>
                                             </div>
                                         </form>
                                     </div>
@@ -70,7 +70,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; nacastle Website 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
