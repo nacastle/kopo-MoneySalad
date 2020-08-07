@@ -52,7 +52,7 @@
 <%--                         <c:forEach items="${accountList }" var="account">  --%>
 <!--                             <div class="col-xl-3 col-md-6"> -->
 <!--                                 <div class="card bg-primary text-white mb-4"> -->
-<%-- <%--                                     <span class="card-title">${account.bank }</span> <span class="card-title text-right">${account.nickname}</span><br> --%> --%>
+<%-- <%--                                     <span class="card-title">${account.bank }</span> <span class="card-title text-right">${account.nickname}</span><br> --%>
 <%--                                     <div class="card-body font-weight-bold">${account.bank } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${account.nickname}</div> --%>
 <%--                                     <div class="card-title">&nbsp;&nbsp;${account.accountNumber }</div> --%>
 <%--                                     <div class="card-body text-right">${account.balance } 원</div> --%>

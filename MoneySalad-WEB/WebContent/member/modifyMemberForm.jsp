@@ -7,6 +7,19 @@
     <head>
         <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
         <title>MoneySalad - 돈 관리가 쉬워지는</title>
+        <style type="text/css">
+        
+        th {
+        	width: 15%;
+        	text-align: center;
+        }
+        
+        td {
+        	padding-left: 1%;
+        
+        }
+        
+        </style>
         <script>
         	new WOW().init();
         	
@@ -74,10 +87,12 @@
         			f.detail_addr.focus()
         			return false
         		}
+        		
+        		
 
         		
 
-        		return true;
+        		return confirm("수정하시겠습니까?");
 
         	}
         	
@@ -100,24 +115,24 @@
                         
                         
                         		<div>
-			<hr width=80%>
-			<h1>상세 회원정보</h1>
-			<hr width=80%>
+<!-- 			<hr width=80%> -->
+			<h1>회원정보 수정양식</h1>
+			<hr width=100%>
 			
 			<form action="<%=request.getContextPath() %>/modifyMemberProcess.do" name="sForm" autocomplete="off"
 			method="post" onsubmit="return doSignUp()">
 
-			<table id="table1" border=1>
+			<table style="width: 70%" id="table1" border=1>
 				<tr>
-					<td>아이디</td>
+					<th>아이디</th>
 					<td>${ member.id}</td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<th>이름</th>
 					<td>${member.name}</td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<th>이메일</th>
 					<td>
 					<input type="text" name="email_id" value="${member.emailId }">@
 					<input type="text" name="email_domain1" value="${member.emailDomain}">
@@ -130,30 +145,29 @@
 					</td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
-					<td><input type="text" name="tel1" size="100%" value="${member.tel1 }">-
-					<input type="text" name="tel2" size="100%" value="${member.tel2}">-
-					<input type="text" name="tel3" size="100%" value="${member.tel3}"></td>
+					<th>전화번호</th>
+					<td><input type="text" style="width: 10%" name="tel1" size="10%" value="${member.tel1 }"> ㅡ
+					<input type="text" style="width: 10%" name="tel2" size="10%" value="${member.tel2}"> ㅡ
+					<input type="text" style="width: 10%" name="tel3" size="10%" value="${member.tel3}"></td>
 				</tr>
 				<tr>
-					<td>우편번호</td>
+					<th>우편번호</th>
 					<td><input type="text" name="post" maxlength="5" value="${member.post}"></td>
 				</tr>
 				<tr>
-					<td>상위주소</td>
-					<td><input type="text" name="basic_addr" value="${member.basicAddr}"></td>
+					<th>상위주소</th>
+					<td><input type="text" style="width: 35%" name="basic_addr" value="${member.basicAddr}"></td>
 				</tr>
 				<tr>
-					<td>상세주소</td>
-					<td><input type="text" name="detail_addr"value="${member.detailAddr}"></td>
+					<th>상세주소</th>
+					<td><input type="text" style="width: 35%" name="detail_addr"value="${member.detailAddr}"></td>
 				</tr>
-				<tr>
-					<td>회원유형</td>
-					<td>${member.type}</td>
-				</tr>
+				
 
 			</table>
-			<button type="submit">수정완료</button>
+			<div align="left">
+			<button class="btn btn-secondary" style="margin: 2%" type="submit">수정완료</button>
+			</div>
 			</form>
 
 			<br>

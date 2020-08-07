@@ -18,6 +18,16 @@
 
         		let f = document.wForm;
 
+        		if (f.selectBank.value == "") {
+        			alert("은행을 선택해주세요.")
+//         			f.transferAmount.focus()
+        			return false
+        		}
+        		if (f.receiveAccountNumber.value == "") {
+        			alert("받는 분 계좌번호를 입력해주세요.")
+        			f.receiveAccountNumber.focus()
+        			return false
+        		}
         		if (f.transferAmount.value == "") {
         			alert("송금할 금액을 입력해주세요.")
         			f.transferAmount.focus()

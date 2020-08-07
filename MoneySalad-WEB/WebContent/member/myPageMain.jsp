@@ -7,6 +7,17 @@
     <head>
         <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
         <title>MoneySalad - 돈 관리가 쉬워지는</title>
+        <style type="text/css">
+        
+        th {
+        	text-align: center;
+        }
+        
+        td {
+        	padding-left: 1%;
+        }
+        
+        </style>
         <script>
         	new WOW().init();
         	
@@ -43,56 +54,92 @@
                         
                         
                         		<div>
-			<hr width=80%>
+<!-- 			<hr width=80%> -->
 			<h1>상세 회원정보</h1>
-			<hr width=80%>
+			<hr width=100%>
+			
+			<table  id="table1" border="1" style="width: 80%">
+				<tr>
+					<th class="table-dark" width="10%">아이디</th>
+					<td class="table-light">${ member.id}</td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">이름</th>
+					<td class="table-light"><c:out value="${member.name}" /></td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">이메일</th>
+					<td class="table-light">${member.emailId }@${member.emailDomain}</td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">전화번호</th>
+					<td class="table-light">${member.tel1}-${member.tel2}-${member.tel3}</td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">우편번호</th>
+					<td class="table-light">${member.post}</td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">상위주소</th>
+					<td class="table-light">${member.basicAddr}</td>
+				</tr>
+				<tr>
+					<th class="table-dark" width="25%">상세주소</th>
+					<td class="table-light">${member.detailAddr}</td>
+				</tr>
+				</table>
+				
+				
 
-			<table id="table1" border=1>
-				<tr>
-					<td>아이디</td>
-					<td>${ member.id}</td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>${member.name}</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>${member.emailId }@${member.emailDomain}</td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td>${member.tel1}-${member.tel2}-${member.tel3}</td>
-				</tr>
-				<tr>
-					<td>우편번호</td>
-					<td>${member.post}</td>
-				</tr>
-				<tr>
-					<td>상위주소</td>
-					<td>${member.basicAddr}</td>
-				</tr>
-				<tr>
-					<td>상세주소</td>
-					<td>${member.detailAddr}</td>
-				</tr>
-				<tr>
-					<td>회원유형</td>
-					<td>${member.type}</td>
-				</tr>
+<!-- 			<table id="table1" border=1> -->
+<!-- 				<tr> -->
+<!-- 					<td>아이디</td> -->
+<%-- 					<td>${ member.id}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>이름</td> -->
+<%-- 					<td>${member.name}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>이메일</td> -->
+<%-- 					<td>${member.emailId }@${member.emailDomain}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>전화번호</td> -->
+<%-- 					<td>${member.tel1}-${member.tel2}-${member.tel3}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>우편번호</td> -->
+<%-- 					<td>${member.post}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>상위주소</td> -->
+<%-- 					<td>${member.basicAddr}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>상세주소</td> -->
+<%-- 					<td>${member.detailAddr}</td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>회원유형</td> -->
+<%-- 					<td>${member.type}</td> --%>
+<!-- 				</tr> -->
 
-			</table>
+<!-- 			</table> -->
 
 			<br>
+			<div align="center">
 			<c:choose>
 				<c:when test="${ member.type eq 'S' }">
-					<button onclick="toList()">회원 목록으로</button>
+					<button class="btn btn-secondary disabled" onclick="toList()">회원 목록으로</button>
 				</c:when>
 				<c:otherwise>
-					<button onclick="modifyInfo()">회원정보 수정</button>
-					<button onclick="resign()">회원탈퇴</button>
+					<button class="btn btn-secondary" onclick="modifyInfo()">회원정보 수정</button>
+					<button class="btn btn-secondary" onclick="resign()">회원탈퇴</button>
 				</c:otherwise>
 			</c:choose>
+			
+			</div>
 			
 
 		</div>

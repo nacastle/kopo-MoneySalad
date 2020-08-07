@@ -26,7 +26,7 @@
         		}
         		if (f.accountNumber.value == "") {
         			alert("계좌번호를 입력해주세요.")
-        			f.depositAmount.focus()
+        			f.accountNumber.focus()
         			return false
         		}
 

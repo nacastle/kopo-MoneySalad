@@ -57,8 +57,8 @@
 			<hr>
 			<br>
 			<h4>회사위치</h4>
-		<div id="map" style="width:40%;height:200px;"></div>
-		<div>회사이름: 머니샐러드(MoneySalad)</div>
+		<div id="map" style="width:40%;height:400px;"></div>
+		<div>회사명: 머니샐러드(MoneySalad)</div>
 		<div>주소: 경기 광명시 오리로 904</div>
 		<div>전화번호: 031-404-5000</div>
 		<div>이메일: 2060340014@kopo.ac.kr</div>

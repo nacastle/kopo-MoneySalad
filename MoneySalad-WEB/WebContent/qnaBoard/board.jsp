@@ -8,6 +8,15 @@
     <head>
         <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
         <title>MoneySalad - 돈 관리가 쉬워지는</title>
+        <style>
+        th {
+         text-align: center;
+        }
+        td {
+        	padding-left: 1%;
+        }
+        
+        </style>
         <script type="text/javascript">
         	new WOW().init();
         	
@@ -16,21 +25,21 @@
         		switch (type) {
         		case 'U':
         			if (confirm('수정하시겠습니까?')) {
-        				location.href = "/MoneySalad-WEB/editForm.do?no=${board.boardNo}";
+        				location.href = "/MoneySalad-WEB/editForm.do?block=${block }&page=${page}&no=${board.boardNo}";
         			}
         			break;
         		case 'D':
         			if (confirm('삭제하시겠습니까?')) {
-        				location.href = "/MoneySalad-WEB/deleteBoard.do?no=${board.boardNo}";
+        				location.href = "/MoneySalad-WEB/deleteBoard.do?block=${block }&page=${page}&no=${board.boardNo}";
         			}
         			break;
         		case 'R':
         			if (confirm('답글을 작성하시겠습니까?')) {
-        				location.href = "/MoneySalad-WEB/rewriteForm.do?no=${board.boardNo}";
+        				location.href = "/MoneySalad-WEB/rewriteForm.do?block=${block }&page=${page}&no=${board.boardNo}";
         			}
         			break;
         		case 'L':
-        			location.href = "/MoneySalad-WEB/qnaBoardList.do?block=1&page=1";
+        			location.href = "/MoneySalad-WEB/qnaBoardList.do?block=${block }&page=${page}";
         			break;
         		}
         	}
@@ -59,35 +68,35 @@
             <h2>${board.title }</h2>
 			<hr>
 			<br>
-			<table border="1">
+			<table border="1" style="width: 100%">
 				<tr>
-					<th width="25%">번호</th>
-					<td>${ board.boardNo }</td>
+					<th class="table-dark" width="10%">번호</th>
+					<td class="table-light">${ board.boardNo }</td>
 				</tr>
 				<tr>
-					<th width="25%">제목</th>
-					<td><c:out value="${board.title }" /></td>
+					<th class="table-dark" width="25%">제목</th>
+					<td class="table-light"><c:out value="${board.title }" /></td>
 				</tr>
 				<tr>
-					<th width="25%">글쓴이</th>
-					<td>${ board.id }</td>
+					<th class="table-dark" width="25%">글쓴이</th>
+					<td class="table-light">${ board.id }</td>
 				</tr>
 				<tr>
-					<th width="25%">조회수</th>
-					<td>${ board.viewCnt }</td>
+					<th class="table-dark" width="25%">조회수</th>
+					<td class="table-light">${ board.viewCnt }</td>
 				</tr>
 				<tr>
-					<th width="25%">등록일</th>
-					<td>${ board.regDate }</td>
+					<th class="table-dark" width="25%">등록일</th>
+					<td class="table-light">${ board.regDate }</td>
 				</tr>
 				<tr>
-					<th width="25%">내용</th>
-					<td>${ board.content }</td>
+					<th class="table-dark" width="25%" height="300px">내용</th>
+					<td class="table-light">${ board.content }</td>
 				</tr>
 				<tr>
-					<th width="25%">첨부파일</th>
+					<th class="table-dark" width="25%">첨부파일</th>
 					 
-					<td>
+					<td class="table-light">
 						<c:forEach items="${fileList }" var="file">
 							<a href="<%=request.getContextPath() %>/upload/${file.fileSaveName }">
 							${file.fileOriName }
@@ -99,15 +108,24 @@
 					</td>
 				</tr>
 			</table>
-			<br> 
-			<c:if test="${userVO.id == board.id }">
-				<input type="button" value="수정" onclick="doAction('U')">&nbsp;&nbsp;
-				<input type="button" value="삭제" onclick="doAction('D')">&nbsp;&nbsp;
-			</c:if>
-				<input type="button" value="답글" onclick="doAction('R')">&nbsp;&nbsp;
-				<input type="button" value="목록" onclick="doAction('L')">&nbsp;&nbsp;
+			<br>
 
-		</div>	
+					<div align="center" style="margin-right: 16%; margin-bottom: 2%">
+
+						<c:if test="${userVO.id == board.id }">
+
+							<input class="btn btn-outline-primary" type="button" value="수정" onclick="doAction('U')">&nbsp;&nbsp;
+				<input class="btn btn-outline-primary" type="button" value="삭제" onclick="doAction('D')">&nbsp;&nbsp;
+			</c:if>
+							
+							<input type="button" value="답글" class="btn btn-outline-primary"
+							onclick="doAction('R')">&nbsp;&nbsp; 
+							
+							<input type="button" class="btn btn-outline-primary"
+							value="목록" onclick="doAction('L')">&nbsp;&nbsp;
+					</div>
+
+				</div>	
                 </main>
                 	<jsp:include page="/na/include/layout/footer.jsp"></jsp:include>
                 

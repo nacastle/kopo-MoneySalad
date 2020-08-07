@@ -42,11 +42,9 @@
         			return false
         		}
         		
-        		if(confirm("등록하시겠습니까?")){
-        			return true;
-        		}
+        		
 
-        		return true;
+        		return confirm("등록하시겠습니까?");
 
         	}
 

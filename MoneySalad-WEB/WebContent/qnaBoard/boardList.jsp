@@ -60,12 +60,12 @@
 <!--     </tr> -->
     <c:forEach items="${ boardList }" var="board" varStatus="loop">
 <%-- 					<tr <c:if test="${loop.count % 2 == 0 }"> class="even"</c:if>> --%>
-					<tr class="table-info">
+					<tr class="table-success">
 						<td>${ board.boardNo }</td>
 						
 						<c:choose>
 						<c:when test="${board.boardNo == board.originalNo }">
-						<td><a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out
+						<td><a href="<%=request.getContextPath() %>/board.do?block=${block }&page=${page }&no=${board.boardNo }&type=list"> <c:out
 									value="${board.title }" />
 						</a></td>
 						</c:when>
@@ -75,7 +75,7 @@
 						RE:
 						</c:forEach>
 						
-						<a href="<%=request.getContextPath() %>/board.do?no=${board.boardNo }&type=list"> <c:out
+						<a href="<%=request.getContextPath() %>/board.do?block=${block }&page=${page }&no=${board.boardNo }&type=list"> <c:out
 									value="${board.title }" />
 						</a></td>
 						</c:otherwise>
@@ -163,21 +163,21 @@
 	<div style="margin-left: 40%">
 			<c:if test="${block -1 != 0 }">
 			
-			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block -1 }&page=${groupStartPage-1 }" >이전</a> &nbsp;
+			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block -1 }&page=${blockStartPage-1 }" >이전</a> &nbsp;
 			</c:if>
-			<c:forEach var="i" begin="${groupStartPage }" end="${groupEndPage }">
+			<c:forEach var="i" begin="${blockStartPage }" end="${blockEndPage }">
 			<c:choose>
 			<c:when test="${page == i }">
 				${i }&nbsp;|&nbsp;
 			</c:when>
 			<c:otherwise>
-				<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block }&page=${i }" >${i }&nbsp;|</a>&nbsp;
+				<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block }&page=${i }" >${i }&nbsp;</a>|&nbsp;
 			
 			</c:otherwise>
 			</c:choose>
 			</c:forEach>
 			<c:if test="${block != blockCnt}">&nbsp;
-			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block+1 }&page=${groupEndPage+1 }" >다음</a> &nbsp;
+			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block+1 }&page=${blockEndPage+1 }" >다음</a> &nbsp;
 			</c:if>
 	</div>
 			<div align="right" style="margin-right: 2%; margin-bottom: 2%;">

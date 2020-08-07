@@ -22,6 +22,8 @@ public class SelectQnaBoardController implements Controller {
 		
 		String boardNo = request.getParameter("no");
 		String type = request.getParameter("type");
+		String page = request.getParameter("page");
+		String block = request.getParameter("block");
 		
 		BoardDAO dao = new BoardDAO();
 		if(type != null && type.equals("list")) {
@@ -31,9 +33,10 @@ public class SelectQnaBoardController implements Controller {
 		List<BoardFileVO> fileList = dao.selectFileByNo(boardNo);
 		
 		
-		
+		request.setAttribute("page", page);
 		request.setAttribute("board", board);
 		request.setAttribute("fileList", fileList);
+		request.setAttribute("block", block);
 
 		
 		return "/qnaBoard/board.jsp";

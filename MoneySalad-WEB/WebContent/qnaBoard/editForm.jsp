@@ -91,7 +91,7 @@
                         </ol>
                         
 <!--             <hr width="80%"> -->
-		<h2>게시물 수정폼 ${boardNo }</h2>
+		<h2>게시물 수정폼</h2>
 		<hr width="100%">
 		<br>
 		<form action="<%=request.getContextPath()%>/editProcess.do" name="wForm" method="post"
