@@ -16,6 +16,9 @@ public class EditFormController implements Controller {
 		request.setCharacterEncoding("UTF-8");
 		
 		String boardNo = request.getParameter("no");
+		int block = Integer.parseInt(request.getParameter("block"));
+		int page = Integer.parseInt(request.getParameter("page"));
+
 		BoardDAO dao = new BoardDAO();
 		BoardVO board = dao.selectBoard(boardNo);
 		String title = board.getTitle();
@@ -24,6 +27,8 @@ public class EditFormController implements Controller {
 		request.setAttribute("boardNo", boardNo);
 		request.setAttribute("title", title);
 		request.setAttribute("content", content);
+		request.setAttribute("block", block);
+		request.setAttribute("page", page);
 
 		
 		

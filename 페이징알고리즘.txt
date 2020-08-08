@@ -1,0 +1,49 @@
+<구조>
+- 컨트롤러
+
+
+- jsp
+
+1. 게시판 링크 클릭했을때 block=1, page=1이 기본
+2. 이전 기능
+block 값이 1이 아니면 이전 버튼 생성
+이전 클릭하면 block-1, blockStartPage-1로 이동
+
+3. 다음 기능
+block 값이 totalBlock이 아니면 다음 버튼 생성
+다음 클릭하면 block+1, blockEndPage+1로 이동
+
+4. 페이지 번호 나타내기
+> 페이지 번호가 현재 페이지일 경우 => 링크 안걸어줌0
+> 현재 페이지 아니면 링크 걸어줌
+링크 경로는...
+board?block=현재블록&page=클릭한페이지로
+
+
+- DB (sql문)
+
+
+<변수>
+- 컨트롤러에서 필요한 변수
+block: jsp로부터
+page: jsp로부터
+totalBoard: DB로부터 (cntBoard)
+boardPerPage: 임의 설정
+pagePerBlock: 임의 설정
+totalPage: totalBoard, boardPerPage로 구함
+totalBlock: totalPage, pagePerBlock으로 구함
+blockStartPage: pagePerBlock, block으로
+blockEndPage: blockStartPage, pagePerBlock
+
+- jsp에서 필요한 변수
+blockStartPage
+blockEndPage
+block
+totalBlock
+page
+
+  
+<필요 sql문>		
+cntBoard : totalBoard 구하기
+selectPageBoard : 한 페이지 안에 들어갈 게시글 조회 (boardList)
+

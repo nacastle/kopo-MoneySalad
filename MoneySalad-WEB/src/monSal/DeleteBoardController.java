@@ -15,6 +15,9 @@ public class DeleteBoardController implements Controller {
 		request.setCharacterEncoding("utf-8");
 		
 		String boardNo = request.getParameter("no");
+		int block = Integer.parseInt(request.getParameter("block"));
+		int page = Integer.parseInt(request.getParameter("page"));
+
 		
 		BoardDAO dao = new BoardDAO();
 		
@@ -23,7 +26,7 @@ public class DeleteBoardController implements Controller {
 		
 		
 		request.setAttribute("msg", "해당 게시글이 삭제되었습니다.");
-		request.setAttribute("url", request.getContextPath()+"/qnaBoardList.do");
+		request.setAttribute("url", request.getContextPath()+"/qnaBoardList.do?block="+block+"&page="+page);
 		
 		return "/qnaBoard/deleteProcess.jsp";
 	}

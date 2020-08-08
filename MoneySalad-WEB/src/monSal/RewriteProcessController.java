@@ -36,13 +36,16 @@ public class RewriteProcessController implements Controller {
 //		System.out.println("id: " + id);
 		String content = multi.getParameter("content");
 		String parentNo = multi.getParameter("parentNo");
+		int block = Integer.parseInt(multi.getParameter("block"));
+		int page = Integer.parseInt(multi.getParameter("page"));
+
 		
 		BoardVO parentBoard = dao.selectBoard(parentNo);
 		String originalNo = parentBoard.getOriginalNo();
 //		System.out.println("부모번호" + parentNo);
 
 		String boardNo = dao.selectBoardNo();
-		request.setAttribute("no", boardNo); // 불필요해보임
+		request.setAttribute("no", boardNo); 
 
 		// 게시물 번호 추출(seq_t_board_no)
 		BoardVO childBoard = new BoardVO();
@@ -86,7 +89,7 @@ public class RewriteProcessController implements Controller {
 		}
 		
 		
-		request.setAttribute("url", request.getContextPath()+"/board.do?no="+boardNo);
+		request.setAttribute("url", request.getContextPath()+"/board.do?block="+block+"&page="+page+"&no="+boardNo);
 		request.setAttribute("msg", "답글이 등록되었습니다.");
 		
 		

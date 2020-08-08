@@ -161,7 +161,7 @@
 			
 <%-- 			<c:forEach var="i" begin="1" end="${curLastPage }"> --%>
 	<div style="margin-left: 40%">
-			<c:if test="${block -1 != 0 }">
+			<c:if test="${block != 1 }">
 			
 			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block -1 }&page=${blockStartPage-1 }" >이전</a> &nbsp;
 			</c:if>
@@ -176,7 +176,7 @@
 			</c:otherwise>
 			</c:choose>
 			</c:forEach>
-			<c:if test="${block != blockCnt}">&nbsp;
+			<c:if test="${block != totalBlock}">&nbsp;
 			<a href="<%=request.getContextPath()%>/qnaBoardList.do?block=${block+1 }&page=${blockEndPage+1 }" >다음</a> &nbsp;
 			</c:if>
 	</div>

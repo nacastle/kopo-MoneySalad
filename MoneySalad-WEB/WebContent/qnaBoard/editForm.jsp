@@ -71,7 +71,7 @@
         	}
 
         	function doList() {
-        		location.href = "<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1"
+    			location.href = "/MoneySalad-WEB/qnaBoardList.do?block=${block }&page=${page}";
         	}
         </script>
     </head>
@@ -100,6 +100,8 @@
 
 			<input type="hidden" name="writer" value="${userVO.id }">
 			<input type="hidden" name="boardNo" value="${boardNo }">
+			<input type="hidden" name="block" value="${block }">
+			<input type="hidden" name="page" value="${page }">
 			<table border="1" style="width: 80%">
 			<tr>
 					<th width="23%">제목</th>

@@ -13,7 +13,7 @@ import util.JDBCClose;
 
 public class BoardDAO {
 
-	public List<BoardVO> selectAllBoard(int page, int boardPerPage) {
+	public List<BoardVO> selectPageBoard(int page, int boardPerPage) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;

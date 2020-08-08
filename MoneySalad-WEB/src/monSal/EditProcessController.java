@@ -34,6 +34,9 @@ public class EditProcessController implements Controller {
 		String boardNo = multi.getParameter("boardNo");
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
+		int block = Integer.parseInt(multi.getParameter("block"));
+		int page = Integer.parseInt(multi.getParameter("page"));
+
 		
 
 		BoardVO board = new BoardVO();
@@ -86,7 +89,7 @@ public class EditProcessController implements Controller {
 //		BoardDAO dao = new BoardDAO();
 //		dao.editBoard(boardNo, board);
 		
-		request.setAttribute("url", request.getContextPath()+"/board.do?no="+boardNo);
+		request.setAttribute("url", request.getContextPath()+"/board.do?block="+block+"&page="+page+"&no="+boardNo);
 		request.setAttribute("msg", "게시글 수정이 완료되었습니다.");
 		
 		
