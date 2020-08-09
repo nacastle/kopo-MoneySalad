@@ -224,6 +224,10 @@ insert into t_qna_board(board_no, title,content,id,original_no, parent_no)
     values('4','계좌삭제는 어떻게하나요?','삭제하는 방법좀 알려주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','4','4');
 insert into t_qna_board(board_no, title,content,id,original_no,parent_no) 
     values('5','시간설정이 잘되나요??','되주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','5','5');
+    
+insert into t_qna_board(title,content,id,original_no,parent_no, board_depth) 
+    values('시간설정이 잘되나요??','되주세요 제발ㄹㄹㄹㄹㄹㄹ','qwe','5','5','0');    
+    
 commit;
 
 ----t_transaction------------------------------------------------------------------------------------------------------\
@@ -258,9 +262,9 @@ SELECT *
   FROM(
         SELECT ROWNUM AS RNUM, A.*
             FROM ( select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date ) A
-         WHERE ROWNUM <= 10*2
+         WHERE ROWNUM <= 7*2
       )
- WHERE RNUM >10*1;
+ WHERE RNUM >7*1;
  
  select count(*) from t_qna_board;
 

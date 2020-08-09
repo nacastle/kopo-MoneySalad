@@ -16,50 +16,59 @@ public class SelectTBoardListController implements Controller{
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		BoardDAO dao = new BoardDAO();
 
-//		System.out.println("???"+request.getParameter("block"));
-		int block = Integer.parseInt(request.getParameter("block")); // 나중에 다른 기능(ex.새글작성) 갔다가 목록으로 되돌아갈때 필요
-//		int block = (int)request.getParameter("block");
+		// 쉬운 부분부터..		
+		int blockNo = Integer.parseInt(request.getParameter("blockNo"));
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		
-		int page = Integer.parseInt(request.getParameter("page")); // block이랑 page는 그냥 받아서 넘겨줄거니까 좀 나중에 설명해도됨
+		// 임의 설정이 필요한 부분
+		int boardCntPerPage = 7;
+		int pageCntPerBlock = 5;
 		
-		int totalBoard = dao.cntBoard(); // DB에 있는 전체 게시글 수
-		int boardPerPage = 7; // 페이지당 게시글 수
-		int totalPage = totalBoard / boardPerPage; // 전체 페이지 수
-		if(totalBoard%boardPerPage > 0) {
-			totalPage++; // 나머지가 있으면 페이지가 다 돌고 남은 게시글이 있는 것이기에 전체 페이지 수에 +1 해줌
-//			int restBoard = totalBoard % boardPerPage;
+		// 블록의 시작 페이지와 끝 페이지 (등차수열 적용)
+		int blockStartPageNo = 1 + pageCntPerBlock * (blockNo - 1);
+		int blockEndPageNo = pageCntPerBlock * blockNo;
+		
+		//// 전체 게시글 수 구하는 코드(dao로 db에 접근해서 cnt 얻어옴)
+		BoardDAO dao = new BoardDAO();
+		int totalBoardCnt = dao.cntBoard();
+		
+		//// 전체 페이지 수 구하는 코드
+		int totalPageCnt = totalBoardCnt / boardCntPerPage;
+		if(totalBoardCnt % boardCntPerPage > 0) {
+			totalPageCnt++; // 나머지가 있으면 페이지가 다 돌고 남은 게시글이 있는 것이기에 전체 페이지 수에 +1 해줌
 		}
 		
-		int pagePerBlock = 5; // 블럭당 페이지 수
-		int totalBlock = totalPage / pagePerBlock; // 블럭 수
-		if(totalPage%pagePerBlock > 0) {  
-//			if(totalPage%pagePerBlock != 10) {
-			totalBlock++;  // 나머지가 있으면 블럭이 다 돌고 나서 남은 페이지가 있는 것이기에 전체 페이지 수에  +1 해줌
+		//// 만약 위 연산으로 계산한 해당 블록 끝 번호가 전체 페이지 번호 수 보다 크다면 블록 끝 번호는 전체 페이지 번호 수 (블록 끝 번호가 계속 전체 페이지 번호수보다 작다가 마지막에만 커지거나 같아짐)
+		if (blockEndPageNo > totalPageCnt) {
+			blockEndPageNo = totalPageCnt;
+		}
+		
+		// 전체 블록 개수 구하기 (다음 버튼 기능을 구현해주기 위해)
+		int totalBlockCnt = totalPageCnt / pageCntPerBlock;
+		if (totalPageCnt % pageCntPerBlock > 0) {
+			totalBlockCnt++;
+			
 		}
 		
 		
 		
-		int blockStartPage = 1+pagePerBlock*(block-1); // 
-		int blockEndPage = blockStartPage+pagePerBlock-1;
-		
-		if(blockEndPage > totalPage ) {
-			blockEndPage = totalPage;
-		}
-		
-		request.setAttribute("blockStartPage", blockStartPage);
-		request.setAttribute("blockEndPage", blockEndPage);
-		request.setAttribute("block", block);
-		request.setAttribute("totalBlock", totalBlock);
-		request.setAttribute("page", page);  
+		// 해당 페이지에서 필요한만큼의 게시글 데이터 얻어오기 
+		List<BoardVO> boardList = dao.selectPageBoard(pageNo, boardCntPerPage); // 이거  dao 설명 필요 (rownum)
 		
 		
 		
-		List<BoardVO> boardList = dao.selectPageBoard(page, boardPerPage); // 해당 페이지에 들어갈 board 리스트
+		request.setAttribute("blockStartPageNo", blockStartPageNo);
+		request.setAttribute("blockEndPageNo", blockEndPageNo);
+		request.setAttribute("blockNo", blockNo);
+		request.setAttribute("totalBlockCnt", totalBlockCnt);
+		request.setAttribute("pageNo", pageNo);  
 		
 		request.setAttribute("boardList", boardList);
 
+		
+		
+		
 		//등록일 설정(오늘날짜면 시분초, 과거날짜면 년월일)
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat();
@@ -69,7 +78,7 @@ public class SelectTBoardListController implements Controller{
 		request.setAttribute("javaSimpleDate", javaSimpleDate);
 		
 		
-		return "/qnaBoard/boardList.jsp";
+		return "/test/tBoardList.jsp";
 	}
 
 }

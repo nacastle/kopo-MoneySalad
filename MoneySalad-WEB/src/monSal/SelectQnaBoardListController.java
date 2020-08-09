@@ -24,14 +24,14 @@ public class SelectQnaBoardListController implements Controller {
 		int page = Integer.parseInt(request.getParameter("page")); // block이랑 page는 그냥 받아서 넘겨줄거니까 좀 나중에 설명해도됨
 		
 		int totalBoard = dao.cntBoard(); // DB에 있는 전체 게시글 수
-		int boardPerPage = 7; // 페이지당 게시글 수
+		int boardPerPage = 5; // 페이지당 게시글 수
 		int totalPage = totalBoard / boardPerPage; // 전체 페이지 수
 		if(totalBoard%boardPerPage > 0) {
 			totalPage++; // 나머지가 있으면 페이지가 다 돌고 남은 게시글이 있는 것이기에 전체 페이지 수에 +1 해줌
 //			int restBoard = totalBoard % boardPerPage;
 		}
 		
-		int pagePerBlock = 5; // 블럭당 페이지 수
+		int pagePerBlock = 3; // 블럭당 페이지 수
 		int totalBlock = totalPage / pagePerBlock; // 블럭 수
 		if(totalPage%pagePerBlock > 0) {  
 //			if(totalPage%pagePerBlock != 10) {
@@ -41,7 +41,8 @@ public class SelectQnaBoardListController implements Controller {
 		
 		
 		int blockStartPage = 1+pagePerBlock*(block-1); // 
-		int blockEndPage = blockStartPage+pagePerBlock-1;
+		int blockEndPage = pagePerBlock*block;
+//		int blockEndPage = blockStartPage+pagePerBlock-1;
 		
 		if(blockEndPage > totalPage ) {
 			blockEndPage = totalPage;
