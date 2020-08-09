@@ -1,4 +1,4 @@
-package monSal;
+package test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,11 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import monSal.Controller;
 import monSal.QnAboard.dao.BoardDAO;
 import monSal.QnAboard.vo.BoardVO;
 
-public class SelectQnaBoardListController implements Controller {
-	
+public class SelectTBoardListController implements Controller{
+
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub

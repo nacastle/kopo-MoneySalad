@@ -25,15 +25,15 @@ board?block=현재블록&page=클릭한페이지로
 
 <변수>
 - 컨트롤러에서 필요한 변수
-block: jsp로부터
-page: jsp로부터
-totalBoard: DB로부터 (cntBoard)
-boardPerPage: 임의 설정
-pagePerBlock: 임의 설정
-totalPage: totalBoard, boardPerPage로 구함
-totalBlock: totalPage, pagePerBlock으로 구함
-blockStartPage: pagePerBlock, block으로
-blockEndPage: blockStartPage, pagePerBlock
+block: jsp로부터 --blockNo @
+page: jsp로부터 --pageNo @
+totalBoard: DB로부터 (cntBoard) --totalBoardNo
+boardPerPage: 임의 설정 -- boardCntPerPage
+pagePerBlock: 임의 설정 -- pageCntPerBlock
+totalPage: totalBoard, boardPerPage로 구함 -- totalPageNo
+totalBlock: totalPage, pagePerBlock으로 구함 --totalBlockNo
+blockStartPage: pagePerBlock, block으로 -- blockStartPageNo
+blockEndPage: blockStartPage, pagePerBlock --blockEndPageNo
 
 - jsp에서 필요한 변수
 blockStartPage
@@ -46,4 +46,13 @@ page
 <필요 sql문>		
 cntBoard : totalBoard 구하기
 selectPageBoard : 한 페이지 안에 들어갈 게시글 조회 (boardList)
+
+SELECT *
+  FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY board_no desc) NUM
+             , A.*
+          FROM t_qna_board A
+         order by to_number(original_no) desc, parent_no, reg_date
+        ) 
+ WHERE NUM BETWEEN 1 AND 10;
 
