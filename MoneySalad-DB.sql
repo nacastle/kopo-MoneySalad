@@ -262,9 +262,11 @@ SELECT *
   FROM(
         SELECT ROWNUM AS RNUM, A.*
             FROM ( select * from t_qna_board  order by to_number(original_no) desc, parent_no, reg_date ) A
-         WHERE ROWNUM <= 7*2
+         WHERE ROWNUM <= 5*1
       )
- WHERE RNUM >7*1;
+ WHERE RNUM >5*0;
+ 
+ select * from t_qna_board;
  
  select count(*) from t_qna_board;
 

@@ -85,8 +85,8 @@
 <!--                                 Tables -->
 <!--                             </a> -->
                             <div class="sb-sidenav-menu-heading">Board</div>
-                            <a class="nav-link" href="<%=request.getContextPath()%>/tBoardList.do?blockNo=1&pageNo=1">
-<%--                             <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1"> --%>
+<%--                             <a class="nav-link" href="<%=request.getContextPath()%>/tBoardList.do?blockNo=1&pageNo=1"> --%>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do?block=1&page=1">
 <%--                             <a class="nav-link" href="<%=request.getContextPath()%>/qnaBoardList.do"> --%>
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 	QnA
