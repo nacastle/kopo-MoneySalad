@@ -31,7 +31,7 @@ public class SelectQnaBoardListController implements Controller {
 //			int restBoard = totalBoard % boardPerPage;
 		}
 		
-		int pagePerBlock = 3; // 블럭당 페이지 수
+		int pagePerBlock = 5; // 블럭당 페이지 수
 		int totalBlock = totalPage / pagePerBlock; // 블럭 수
 		if(totalPage%pagePerBlock > 0) {  
 //			if(totalPage%pagePerBlock != 10) {

@@ -9,7 +9,7 @@
         <jsp:include page="/na/include/lib/topLibs.jsp"></jsp:include>
         <title>MoneySalad - 돈 관리가 쉬워지는</title>
 <!--         <script type="text/javascript" -->
-<!--         	src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=4876ba7f5d13b2248111d87ea23ed4a3"></script> -->
+<!--         	src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=API키를 카카오 디벨로퍼에서 찾아 입력"></script> -->
         	<script>
         	new WOW().init();
         	
@@ -64,7 +64,7 @@
 		<div>이메일: 2060340014@kopo.ac.kr</div>
 		<div>FAX: 031-404-5000</div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4876ba7f5d13b2248111d87ea23ed4a3"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API키를 카카오 디벨로퍼에서 찾아 입력"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 

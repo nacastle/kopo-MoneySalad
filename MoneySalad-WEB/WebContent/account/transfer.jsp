@@ -71,6 +71,7 @@
 			<tr>
 					<th width="23%">받는 분 은행</th>
 					<td>&nbsp;
+						<input type="radio" name="selectBank" value="캐슬은행"> 캐슬은행 
 						<input type="radio" name="selectBank" value="하나은행"> 하나은행 
 						<input type="radio" name="selectBank" value="우리은행"> 우리은행 
 						<input type="radio" name="selectBank" value="기업은행"> 기업은행 
